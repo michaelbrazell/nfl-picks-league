@@ -1,0 +1,11 @@
+.round-navigation {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.round {
+  border: 1px solid #000;
+  text-align: center;
+  padding: 6px 18px;
+}

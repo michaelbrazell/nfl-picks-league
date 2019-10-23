@@ -1,6 +1,8 @@
 import React from 'react';
 import Game from '../PicksUI/Game'
 
+import './Landing.css'
+
 const games = [
   {
     "gameNumber":1,
@@ -38,8 +40,7 @@ const games = [
 ]
 
 const Landing = () => (
-  <div>
-    <h1>NFL Pick'em League</h1>
+  <div className="games-grid">
     {
       games.map(game => {
         return (
