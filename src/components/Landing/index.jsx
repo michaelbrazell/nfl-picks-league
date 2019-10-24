@@ -36,7 +36,6 @@ const games = [
     "homeTeamSpread":"+3.5",
     "gameDetails":"Sunday - 1:00pm"
   }
-
 ]
 
 const Landing = () => (
