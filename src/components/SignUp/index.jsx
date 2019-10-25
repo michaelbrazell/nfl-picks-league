@@ -6,9 +6,16 @@ import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+
 const SignUpPage = () => (
   <div>
-    <h1>SignUp</h1>
     <SignUpForm />
   </div>
 );
@@ -86,51 +93,85 @@ class SignUpFormBase extends Component {
       username === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="username"
-          value={username}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Full Name"
-        />
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <input
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm Password"
-        />
-        <label>
-          Admin: 
-          <input 
-            name="isAdmin"
-            type="checkbox"
-            checked={isAdmin} 
-            onChange={this.onChangeCheckbox}
-          />
-        </label>
-        <button disabled={isInvalid} type="submit">
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Typography component="h1" variant="h5">
           Sign Up
-        </button>
+        </Typography>
+        <form onSubmit={this.onSubmit}>
+          <TextField
+            onChange={this.onChange}
+            value={username}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            placeholder="Username"
+            autoComplete="username"
+            autoFocus
+          />
+          <TextField
+            onChange={this.onChange}
+            value={email}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+          />
+          <TextField
+            value={passwordOne}
+            onChange={this.onChange}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="passwordOne"
+            label="Password"
+            type="password"
+            id="passwordOne"
+            placeholder="Password"
+            autoComplete="current-password"
+          />
+          <TextField
+            value={passwordTwo}
+            onChange={this.onChange}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="passwordTwo"
+            label="Confirm Password"
+            type="password"
+            id="passwordOne"
+            placeholder="Confirm Password"
+            autoComplete="current-password"
+          />
+          <FormControlLabel
+            control={<Checkbox name="isAdmin" checked={isAdmin} 
+            onChange={this.onChangeCheckbox} value="is-admin" color="primary" />}
+            label="Is Admin"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            disabled={isInvalid}
+          >
+            Sign Up
+          </Button>
+          {error && <p>{error.message}</p>}
 
-        {error && <p>{error.message}</p>}
-
-      </form>
+        </form>
+      </Container>
     );
   }
 }

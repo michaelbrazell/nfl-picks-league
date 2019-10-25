@@ -1,5 +1,18 @@
 .game {
-  background: #FFF;
-  border-radius: 4px;
-  padding: 20px;
+  padding: 1em;
+  border-top: 5px solid grey;
+}
+
+.game.selected {
+  border-top: 5px solid #f50057;
+}
+
+.game .game-selection-form {
+  display: flex;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
 }
