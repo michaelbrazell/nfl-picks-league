@@ -24,38 +24,18 @@ class Round extends React.Component {
       "selection":selection
     }
 
-    // What follow is a bunch of code not being used.
-    
-    // Take the existing this.state.userSelections
-    // Check to see if gameId matches
-    // If so, remove that item, add the new one
-
-    // // List of unique games
-    // let uniqueGameSelections = this.state.userSelections.filter((selection, index, array) => {
-    //   return selection.game !== gameId
-    // })
-
-    // console.log('Filterd Games: ', uniqueGameSelections)
-
-    // Compare the state to this filtered list
-    // If gameId in state matches gameId in this list, drop it in favor of the latest selection
-    // let filteredState = this.state.userSelections.filter((selection, index, array) => {
-    //   return selection.game !== filteredGameSelection.game
-    // })
-
-    // console.log('Filtered State: ', filteredState)
-    
     let matchedGameId = this.state.userSelections.find(obj => obj.game === gameId);
 
     if (matchedGameId) {
       matchedGameId.selection = selection;
       this.setState(prevState => {
-        let userSelections = Object.assign({}, prevState.userSelections);  // creating copy of state variable jasper
+        console.log(prevState)
+        let userSelections = prevState.userSelections;
         if (userSelections.game === gameId) {
           userSelections.selection = selection
         }
         
-        return { userSelections };                                 // return new object jasper object
+        return { userSelections };
       })
     } else {
       this.setState({
@@ -63,17 +43,6 @@ class Round extends React.Component {
       })  
     }
     
-    
-    
-    
-    // if (this.state.userSelections.some(e => e.game === gameId)) {
-    //   console.log('We have a match with ')
-    // } else {
-    //   this.setState({
-    //     userSelections: [...this.state.userSelections, overUnderSelections]
-    //   })  
-    // }
-  
   }
   
   render() {
