@@ -18,31 +18,80 @@ class Round extends React.Component {
     console.log(choices)
   }
 
-  onHandleOverUnder = (gameId, selection) => {
-    let overUnderSelections = {
-      "game":gameId,
-      "selection":selection
-    }
+  onHandleSelections = (updateType, gameId, selection) => {
+    if (updateType === 'overUnder') {
+      let overUnderSelections = {
+        "game":gameId,
+        "overUnderSelection":selection
+      }
 
-    let matchedGameId = this.state.userSelections.find(obj => obj.game === gameId);
+      let matchedGameId = this.state.userSelections.find(obj => obj.game === gameId);
+  
+      if (matchedGameId) {
+        matchedGameId.overUnderSelection = selection;
+        this.setState(prevState => {
+          let userSelections = prevState.userSelections;
+          if (userSelections.game === gameId) {
+            userSelections.selection = selection
+          }
+          
+          return { userSelections };
+        })
+      } else {
+        this.setState({
+          userSelections: [...this.state.userSelections, overUnderSelections]
+        })  
+      }
+    } else if (updateType === 'team') {
+      let teamSelection = {
+        "game":gameId,
+        "teamSelection":selection
+      }
 
-    if (matchedGameId) {
-      matchedGameId.selection = selection;
-      this.setState(prevState => {
-        console.log(prevState)
-        let userSelections = prevState.userSelections;
-        if (userSelections.game === gameId) {
-          userSelections.selection = selection
-        }
-        
-        return { userSelections };
-      })
-    } else {
-      this.setState({
-        userSelections: [...this.state.userSelections, overUnderSelections]
-      })  
-    }
+      let matchedGameId = this.state.userSelections.find(obj => obj.game === gameId);
+  
+      if (matchedGameId) {
+        matchedGameId.teamSelection = selection;
+        this.setState(prevState => {
+          let userSelections = prevState.userSelections;
+          if (userSelections.game === gameId) {
+            userSelections.selection = selection
+          }
+          
+          return { userSelections };
+        })
+      } else {
+        this.setState({
+          userSelections: [...this.state.userSelections, teamSelection]
+        })  
+      }
     
+    } else if (updateType === 'parlay') {
+      let parlaySelection = {
+        "game":gameId,
+        "parlay":selection
+      }
+
+      let matchedGameId = this.state.userSelections.find(obj => obj.game === gameId);
+  
+      if (matchedGameId) {
+        matchedGameId.parlay = selection;
+        this.setState(prevState => {
+          let userSelections = prevState.userSelections;
+          if (userSelections.game === gameId) {
+            userSelections.selection = selection
+          }
+          
+          return { userSelections };
+        })
+      } else {
+        this.setState({
+          userSelections: [...this.state.userSelections, parlaySelection]
+        })  
+      }
+      
+    }
+
   }
   
   render() {
@@ -67,7 +116,7 @@ class Round extends React.Component {
                           homeTeam={game.homeTeam} 
                           homeTeamSpread={game.homeTeamSpread}
                           overUnder="53.5"
-                          onOverUnderSelection={this.onHandleOverUnder.bind(this)}
+                          onSelectionChange={this.onHandleSelections.bind(this)}
                         />
                       )
                     })
