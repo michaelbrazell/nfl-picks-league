@@ -7,11 +7,12 @@ import { withAuthorization } from '../Session';
 import * as ROLES from '../../constants/roles';
 import * as ROUTES from '../../constants/routes';
 
+import Editor from './Editor.jsx'
+
 const AdminPage = () => (
   <div>
     <h1>Admin</h1>
-    <p>The Admin Page is accessible by every signed in admin user.</p>
-
+    <Editor/>
     <Switch>
       <Route exact path={ROUTES.ADMIN_DETAILS} component={UserItem} />
       <Route exact path={ROUTES.ADMIN} component={UserList} />

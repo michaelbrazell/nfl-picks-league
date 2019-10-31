@@ -1,0 +1,10 @@
+.admin-game-form .row-container {
+  display: grid;
+  grid-template-columns: 60% 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.admin-game-form .round-select {
+  margin-bottom: 1em;
+}
+
