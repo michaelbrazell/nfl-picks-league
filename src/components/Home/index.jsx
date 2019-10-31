@@ -12,35 +12,35 @@ const roundData = [
     "gameData":[
       {
         "gameNumber":1,
-        "awayTeam":"Kansas City Chiefs",
-        "awamTeamSpread":"-3",
-        "homeTeam":"Denver Broncos",
-        "homeTeamSpread":"+3",
-        "gameDetails":"Thursday - 8:20pm"
+        "awayTeam":"Tennessee Titans",
+        "awayTeamSpread":"+8",
+        "homeTeam":"Kansas City Chiefs",
+        "homeTeamSpread":"-8",
+        "overUnder":"44.5"
       },
       {
         "gameNumber":2,
-        "awayTeam":"Los Angeles Rams",
-        "awamTeamSpread":"-3",
-        "homeTeam":"Atlanta Falcons",
-        "homeTeamSpread":"+3",
-        "gameDetails":"Sunday - 1:00pm"
+        "awayTeam":"Atlanta Falcons",
+        "awayTeamSpread":"+6",
+        "homeTeam":"Los Angeles Rams",
+        "homeTeamSpread":"-6",
+        "overUnder":"48.5"
       },
       {
         "gameNumber":3,
-        "awayTeam":"Miami Dolphins",
-        "awamTeamSpread":"+17",
-        "homeTeam":"Buffalo Bills",
-        "homeTeamSpread":"-17",
-        "gameDetails":"Sunday - 1:00pm"
+        "awayTeam":"Buffalo Bills",
+        "awayTeamSpread":"+8.5",
+        "homeTeam":"Jacksonville Jaguars",
+        "homeTeamSpread":"-8.5",
+        "overUnder":"39.5"
       },
       {
         "gameNumber":4,
-        "awayTeam":"Jacksonville Jaguars",
-        "awamTeamSpread":"-3.5",
-        "homeTeam":"Cincinatti Bengals",
-        "homeTeamSpread":"+3.5",
-        "gameDetails":"Sunday - 1:00pm"
+        "awayTeam":"Carolina Panthers",
+        "awayTeamSpread":"+6.5",
+        "homeTeam":"New Orleans Saints",
+        "homeTeamSpread":"-6.5",
+        "overUnder":"48.5"
       }
     ]
   }

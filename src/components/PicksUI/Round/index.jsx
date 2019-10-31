@@ -115,7 +115,7 @@ class Round extends React.Component {
                           awayTeamSpread={game.awayTeamSpread} 
                           homeTeam={game.homeTeam} 
                           homeTeamSpread={game.homeTeamSpread}
-                          overUnder="53.5"
+                          overUnder={game.overUnder}
                           onSelectionChange={this.onHandleSelections.bind(this)}
                         />
                       )

@@ -31,9 +31,6 @@ const NavigationAuth = ({ authUser }) => (
   <div className="header-navigation signed-in">
     <AppBar position="static">
       <Toolbar>
-        <IconButton edge="start" className="menu-button" color="inherit" aria-label="menu">
-          <MenuIcon />
-        </IconButton>
         <Typography variant="h6" className="title">
           <Link to={ROUTES.HOME}>Playoff Pick'em League</Link>
         </Typography>
@@ -52,6 +49,13 @@ const NavigationAuth = ({ authUser }) => (
         </Link>
       </Toolbar>
     </AppBar>
+    <div className="sub-navigation">
+      <ul>
+        <li><Link to={ROUTES.HOME}>Picks</Link></li>
+        <li><Link to={ROUTES.RESULTS}>Results</Link></li>
+        <li><Link to={ROUTES.STANDINGS}>Standings</Link></li>
+      </ul>
+    </div>
   </div>
 );
 
@@ -59,9 +63,6 @@ const NavigationNonAuth = () => (
   <div className="header-navigation signed-out">
     <AppBar position="static">
       <Toolbar>
-        <IconButton edge="start" className="menu-button" color="inherit" aria-label="menu">
-          <MenuIcon />
-        </IconButton>
         <Typography variant="h6" className="title">
           <Link to={ROUTES.LANDING}>Playoff Pick'em League</Link>
         </Typography>
