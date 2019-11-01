@@ -8,3 +8,11 @@
   margin-bottom: 1em;
 }
 
+.admin-game-form .game {
+  margin-bottom: 2em;
+}
+
+.admin-game-form .game h4 {
+  margin: 0 0 .5em;
+}
+
