@@ -9,8 +9,36 @@ class Editor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      'foo':'foo'
+      "gameData":[
+        {
+          gameNumber:"",
+          awayTeam:"",
+          awayTeamSpread:"",
+          homeTeam:"",
+          homeTeamSpread:"",
+          overUnder:""
+        }
+      ]
     }
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event, gameNumber) {
+    // To Do - Create a gameID across all games, so not just a generic number but a unique ID
+    //  eg., round-1-game-1, etc.
+    var tempGameData = [...this.state.gameData]
+    var tempGameNumber = gameNumber - 1
+    tempGameData[tempGameNumber].awayTeam = event.target.value
+    this.setState({
+      "gameData": tempGameData
+    })
+  }
+
+  componentDidMount() {
+    this.setState({
+      "gameData":this.props.data
+    })
   }
 
   render() {
@@ -19,7 +47,7 @@ class Editor extends React.Component {
         <h2>{this.props.roundName}</h2>
         <form>
           {
-            this.props.data.map(game => {
+            this.state.gameData.map(game => {
               return (
                 <Paper className="game" key={game.gameNumber}>
                   <h4>Game {game.gameNumber} - {game.awayTeam} at {game.homeTeam}</h4>
@@ -37,6 +65,7 @@ class Editor extends React.Component {
                         variant="outlined"
                         fullWidth
                         value={game.awayTeam}
+                        onChange={ (e) => this.handleChange(e, game.gameNumber)}
                       />
                     </div>
                     <div>
@@ -94,9 +123,6 @@ class Editor extends React.Component {
               )
             })
           }
-          <Paper className="game">
-            <h3>Game 1</h3>
-          </Paper>
           
         </form>
       </div>

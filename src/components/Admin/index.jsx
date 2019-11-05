@@ -21,36 +21,36 @@ const playoffData = {
     "active":true,
     "gameData":[
       {
-        "gameNumber":1,
-        "awayTeam":"Tennessee Titans",
-        "awayTeamSpread":"+8",
-        "homeTeam":"Kansas City Chiefs",
-        "homeTeamSpread":"-8",
-        "overUnder":"44.5"
+        gameNumber:1,
+        awayTeam:"Tennessee Titans",
+        awayTeamSpread:"+8",
+        homeTeam:"Kansas City Chiefs",
+        homeTeamSpread:"-8",
+        overUnder:"44.5"
       },
       {
-        "gameNumber":2,
-        "awayTeam":"Atlanta Falcons",
-        "awayTeamSpread":"+6",
-        "homeTeam":"Los Angeles Rams",
-        "homeTeamSpread":"-6",
-        "overUnder":"48.5"
+        gameNumber:2,
+        awayTeam:"Atlanta Falcons",
+        awayTeamSpread:"+6",
+        homeTeam:"Los Angeles Rams",
+        homeTeamSpread:"-6",
+        overUnder:"48.5"
       },
       {
-        "gameNumber":3,
-        "awayTeam":"Buffalo Bills",
-        "awayTeamSpread":"+8.5",
-        "homeTeam":"Jacksonville Jaguars",
-        "homeTeamSpread":"-8.5",
-        "overUnder":"39.5"
+        gameNumber:3,
+        awayTeam:"Buffalo Bills",
+        awayTeamSpread:"+8.5",
+        homeTeam:"Jacksonville Jaguars",
+        homeTeamSpread:"-8.5",
+        overUnder:"39.5"
       },
       {
-        "gameNumber":4,
-        "awayTeam":"Carolina Panthers",
-        "awayTeamSpread":"+6.5",
-        "homeTeam":"New Orleans Saints",
-        "homeTeamSpread":"-6.5",
-        "overUnder":"48.5"
+        gameNumber:4,
+        awayTeam:"Carolina Panthers",
+        awayTeamSpread:"+6.5",
+        homeTeam:"New Orleans Saints",
+        homeTeamSpread:"-6.5",
+        overUnder:"48.5"
       }
     ]
   },
