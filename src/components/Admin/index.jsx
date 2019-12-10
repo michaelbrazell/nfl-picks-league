@@ -21,6 +21,7 @@ const playoffData = {
     "active":true,
     "gameData":[
       {
+        gameId:'round-1-game-1',
         gameNumber:1,
         awayTeam:"Tennessee Titans",
         awayTeamSpread:"+8",
@@ -29,6 +30,7 @@ const playoffData = {
         overUnder:"44.5"
       },
       {
+        gameId:'round-1-game-2',
         gameNumber:2,
         awayTeam:"Atlanta Falcons",
         awayTeamSpread:"+6",
@@ -37,6 +39,7 @@ const playoffData = {
         overUnder:"48.5"
       },
       {
+        gameId:'round-1-game-3',
         gameNumber:3,
         awayTeam:"Buffalo Bills",
         awayTeamSpread:"+8.5",
@@ -45,6 +48,7 @@ const playoffData = {
         overUnder:"39.5"
       },
       {
+        gameId:'round-1-game-4',
         gameNumber:4,
         awayTeam:"Carolina Panthers",
         awayTeamSpread:"+6.5",
@@ -158,6 +162,7 @@ class AdminPage extends React.Component {
   componentDidMount() {
     this.setState({
       round: playoffData.round[0].name,
+      roundNumber: playoffData.round[0].roundNumber
     })
   }
 
@@ -187,7 +192,9 @@ class AdminPage extends React.Component {
         </FormControl>
         <Editor 
           roundName={this.state.roundData.name}
-          data={this.state.roundData.gameData}/>
+          data={this.state.roundData.gameData}
+          roundNumber={this.state.roundData.roundNumber}/>
+          
         <Switch>
           <Route exact path={ROUTES.ADMIN_DETAILS} component={UserItem} />
           <Route exact path={ROUTES.ADMIN} component={UserList} />

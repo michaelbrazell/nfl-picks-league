@@ -100,32 +100,35 @@ class Round extends React.Component {
         {console.log('User Selections State:', this.state.userSelections)}
         {
           this.state.roundData.map(round => {
-            return (
-              <div className="foo" key={round.roundNumber}>
-                <h3>{round.name} Round</h3>
-                <form onSubmit={event => this.onCreateSelections(event) }>
-                  <div className="games-grid">
-                  {
-                    round.gameData.map(game => {
-                      return(
-                        <Game 
-                          gameId={'round-'+round.roundNumber+'-game-'+game.gameNumber} 
-                          key={'round-'+round.roundNumber+'-game-'+game.gameNumber}
-                          awayTeam={game.awayTeam} 
-                          awayTeamSpread={game.awayTeamSpread} 
-                          homeTeam={game.homeTeam} 
-                          homeTeamSpread={game.homeTeamSpread}
-                          overUnder={game.overUnder}
-                          onSelectionChange={this.onHandleSelections.bind(this)}
-                        />
-                      )
-                    })
-                  }
-                  </div>
-                  <Button variant="contained" type="submit" color="primary">Submit {round.name} Round</Button>
-                </form>
-              </div>
-            )
+            if (round.selected === true) {
+              return (
+                <div className="foo" key={round.roundNumber}>
+                  <h3>{round.name} Round</h3>
+                  <form onSubmit={event => this.onCreateSelections(event) }>
+                    <div className="games-grid">
+                    {
+                      round.gameData.map(game => {
+                        return(
+                          <Game 
+                            gameId={'round-'+round.roundNumber+'-game-'+game.gameNumber} 
+                            key={'round-'+round.roundNumber+'-game-'+game.gameNumber}
+                            awayTeam={game.awayTeam} 
+                            awayTeamSpread={game.awayTeamSpread} 
+                            homeTeam={game.homeTeam} 
+                            homeTeamSpread={game.homeTeamSpread}
+                            overUnder={game.overUnder}
+                            onSelectionChange={this.onHandleSelections.bind(this)}
+                          />
+                        )
+                      })
+                    }
+                    </div>
+                    <Button variant="contained" type="submit" color="primary">Submit {round.name} Round</Button>
+                  </form>
+                </div>
+              )
+
+            }
           })
         }
 

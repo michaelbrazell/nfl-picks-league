@@ -1,0 +1,11 @@
+.round {
+  border: 1px solid #000;
+  text-align: center;
+  padding: 6px 18px;
+  cursor: pointer;
+}
+
+.round.active {
+  background: darkgoldenrod;
+  color: #fff;
+}
