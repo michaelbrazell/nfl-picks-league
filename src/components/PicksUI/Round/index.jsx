@@ -1,7 +1,14 @@
 import React from 'react';
-import Game from '../Game'
+import Game from '../Game';
 
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+
+import './Round.css';
 
 class Round extends React.Component {
   constructor(props) {
@@ -93,6 +100,19 @@ class Round extends React.Component {
     }
 
   }
+
+  renderSelectionParlay(selection) {
+    console.log(selection)
+    if (!selection || selection === false) {
+      return (
+        <li>Parlay: No</li>
+      )
+    } else if (selection === true) {
+      return (
+        <li><strong>Parlay: Yes</strong></li>
+      )
+    }
+  }
   
   render() {
     return (
@@ -102,30 +122,62 @@ class Round extends React.Component {
           this.state.roundData.map(round => {
             if (round.selected === true) {
               return (
-                <div className="foo" key={round.roundNumber}>
-                  <h3>{round.name} Round</h3>
-                  <form onSubmit={event => this.onCreateSelections(event) }>
-                    <div className="games-grid">
-                    {
-                      round.gameData.map(game => {
-                        return(
-                          <Game 
-                            gameId={'round-'+round.roundNumber+'-game-'+game.gameNumber} 
-                            key={'round-'+round.roundNumber+'-game-'+game.gameNumber}
-                            awayTeam={game.awayTeam} 
-                            awayTeamSpread={game.awayTeamSpread} 
-                            homeTeam={game.homeTeam} 
-                            homeTeamSpread={game.homeTeamSpread}
-                            overUnder={game.overUnder}
-                            onSelectionChange={this.onHandleSelections.bind(this)}
-                          />
-                        )
-                      })
-                    }
-                    </div>
-                    <Button variant="contained" type="submit" color="primary">Submit {round.name} Round</Button>
-                  </form>
-                </div>
+                <Container component="main" maxWidth="lg">
+
+                  <div className="round-choices" key={round.roundNumber}>
+                    <Typography component="h1" variant="h4">
+                      {round.name} Round
+                    </Typography>
+                    <form onSubmit={event => this.onCreateSelections(event) }>
+                      <Grid container spacing={3}>
+                      {
+                        round.gameData.map(game => {
+                          return(
+                            <Grid item xs={12} sm={12} md={6}>
+                              <Game 
+                                gameId={'round-'+round.roundNumber+'-game-'+game.gameNumber} 
+                                key={'round-'+round.roundNumber+'-game-'+game.gameNumber}
+                                awayTeam={game.awayTeam} 
+                                awayTeamSpread={game.awayTeamSpread} 
+                                homeTeam={game.homeTeam} 
+                                homeTeamSpread={game.homeTeamSpread}
+                                overUnder={game.overUnder}
+                                onSelectionChange={this.onHandleSelections.bind(this)}
+                              />
+                            </Grid>
+                          )
+                        })
+                      }
+                      </Grid>
+                      {this.state.userSelections.length > 0 &&
+                        <Container component="main" maxWidth="sm">
+                          <Paper className="round-selections paper-selections">
+                            <Typography component="h1" variant="h5">
+                              Your Selections
+                            </Typography>
+                            {
+                              this.state.userSelections.map( (game, i) => {
+                                return (
+                                  <div key={game.gameNumber}>
+                                    <p><strong>Game {i+1}</strong></p>
+                                    <ul>
+                                      <li>Winner: {game.teamSelection}</li>
+                                      <li>Over/Under: {game.overUnderSelection}</li>
+                                      {this.renderSelectionParlay(game.parlay)}
+                                    </ul>
+                                    <Divider />
+                                  </div>
+                                )
+                              })
+                            }
+                            <Button variant="contained" type="submit" color="primary" className="submit-button">Submit {round.name} Selections</Button>
+                          </Paper>
+                        </Container>
+                      
+                      }
+                    </form>
+                  </div>
+                </Container>
               )
 
             }

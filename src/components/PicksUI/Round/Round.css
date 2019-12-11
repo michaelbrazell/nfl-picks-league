@@ -1,0 +1,12 @@
+.round-choices h1 {
+  margin: .5em 0;
+}
+
+.paper-selections {
+  padding: 2em;
+}
+
+.submit-button {
+  width: 100%;
+  margin-bottom: 0;
+}

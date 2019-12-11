@@ -10,6 +10,8 @@ import HomePage from '../Home';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
 
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
 
@@ -18,6 +20,7 @@ import './App.css'
 const App = () => (
   <Router>
     <div>
+      <CssBaseline />
       <Navigation />
       <div className="page">
         <Route exact path={ROUTES.LANDING} component={LandingPage} />

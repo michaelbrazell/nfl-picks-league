@@ -9,6 +9,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Divider from '@material-ui/core/Divider';
 import Tooltip from '@material-ui/core/Tooltip';
+import Grid from '@material-ui/core/Grid';
 
 import './Game.css'
 
@@ -76,20 +77,20 @@ class Game extends React.Component {
       <Paper className={this.renderGameStatus()}>
         <FormControl component="fieldset" className="game-selection-form">
           <FormLabel component="legend">{this.props.awayTeam} ({this.props.awayTeamSpread}) at {this.props.homeTeam} ({this.props.homeTeamSpread}) | Points: {this.props.overUnder}</FormLabel>
-          <div className="game-grid">
-            <div className="grid-left">
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={7} md={7}>
               <RadioGroup aria-label={'team-select-'+ this.props.gameId} name={'team-select-'+ this.props.gameId} value={this.state.teamSelected} onChange={this.handleTeamChange}>
                 <FormControlLabel value={this.props.awayTeam} control={<Radio />} label={this.props.awayTeam + ' (' + this.props.awayTeamSpread + ')'} />
                 <FormControlLabel value={this.props.homeTeam} control={<Radio />} label={this.props.homeTeam + ' (' + this.props.homeTeamSpread + ')'} />
               </RadioGroup>
-            </div>  
-            <div className="grid-right">
+            </Grid>  
+            <Grid item xs={12} sm={5} md={5}>
               <RadioGroup aria-label={'over-under-select-'+ this.props.gameId} name={'over-under-select-'+ this.props.gameId} value={this.state.overUnderSelected} onChange={this.handleOverUnderChange}>
                 <FormControlLabel value='Under' control={<Radio />} label={'Under ' + this.props.overUnder} />
                 <FormControlLabel value='Over' control={<Radio />} label={'Over ' + this.props.overUnder} />
               </RadioGroup>
-            </div>
-          </div>
+            </Grid>
+          </Grid>
           <Divider />
           <FormControlLabel
             control={
