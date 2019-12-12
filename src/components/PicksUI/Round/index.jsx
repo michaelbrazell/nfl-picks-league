@@ -23,12 +23,6 @@ class Round extends React.Component {
     }
   }
 
-  // The function used to send everything to firebase
-  onCreateChoices = (event) => {
-    let choices = 'nothing for now'
-    console.log(choices)
-  }
-
   onHandleSelections = (updateType, gameId, selection) => {
     if (updateType === 'overUnder') {
       let overUnderSelections = {
@@ -117,10 +111,10 @@ class Round extends React.Component {
     }
   }
 
-  onCreateSelections = (event, authUser) => {
+  onCreateEntry = (event, authUser) => {
     event.preventDefault();
 
-    this.props.firebase.submissions().push({
+    this.props.firebase.entries().push({
       userId: authUser.uid,
       username: authUser.username,
       createdAt: this.props.firebase.serverValue.TIMESTAMP,
@@ -159,7 +153,7 @@ class Round extends React.Component {
                       <Typography component="h1" variant="h4">
                         {round.name} Round {this.renderSubmittedState()}
                       </Typography>
-                      <form onSubmit={event => this.onCreateSelections(event, authUser) }>
+                      <form onSubmit={event => this.onCreateEntry(event, authUser) }>
                         <Grid container spacing={3}>
                         {
                           round.gameData.map(game => {

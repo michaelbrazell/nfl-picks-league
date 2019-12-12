@@ -1,8 +1,11 @@
 import React from 'react';
+import { compose } from 'recompose';
+
 import Round from '../PicksUI/Round'
 import RoundNavigation from '../PicksUI/RoundNavigation'
 
 import { withAuthorization } from '../Session';
+import { withFirebase } from '../Firebase';
 
 import './Home.css';
 
@@ -133,6 +136,7 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      users: null,
       roundData: []
     }
   }
@@ -141,6 +145,16 @@ class HomePage extends React.Component {
     this.setState({
       roundData: roundData
     })
+
+    this.props.firebase.users().on('value', snapshot => {
+      this.setState({
+        users: snapshot.val(),
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    this.props.firebase.users().off();
   }
 
   setSelectedRound(roundNumber) {
@@ -174,7 +188,7 @@ class HomePage extends React.Component {
             })
           }
         </div>
-        <Round data={roundData} />
+        <Round data={roundData} users={this.state.users} />
       </div>
     )
   }
@@ -182,4 +196,7 @@ class HomePage extends React.Component {
 
 const condition = authUser => !!authUser;
 
-export default withAuthorization(condition)(HomePage);
+export default compose(
+  withFirebase,
+  withAuthorization(condition),
+)(HomePage);

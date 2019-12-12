@@ -15,6 +15,8 @@ class Firebase {
   constructor() {
     app.initializeApp(config);
 
+    this.serverValue = app.database.ServerValue;
+
     this.auth = app.auth();
     this.db = app.database();
   }
@@ -57,6 +59,10 @@ class Firebase {
   // User API
   user = uid => this.db.ref(`users/${uid}`);
   users = () => this.db.ref('users');
+
+  // Submissions API
+  entry = uid => this.db.ref(`entries/${uid}`);
+  entries = () => this.db.ref('entries');
 }
 
 export default Firebase;
