@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Grid from '@material-ui/core/Grid';
+
 import './RoundNavigation.css'
 
 class RoundNavigation extends React.Component {
@@ -20,9 +22,11 @@ class RoundNavigation extends React.Component {
 
   render() {
     return (
-      <div className={this.renderRoundStyles()} key={this.props.roundNumber} onClick={this.props.handleRoundChoice}>
-        {this.props.name}
-      </div>
+      <Grid item xs={12} sm={3} key={this.props.roundNumber}>
+        <div className={this.renderRoundStyles()} key={this.props.roundNumber} onClick={this.props.handleRoundChoice}>
+          {this.props.name}
+        </div>
+      </Grid>
     )
   }
 }

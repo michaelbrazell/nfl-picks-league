@@ -1,11 +1,13 @@
 import React from 'react';
 import { compose } from 'recompose';
+import { withAuthorization } from '../Session';
+import { withFirebase } from '../Firebase';
+
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 
 import Round from '../PicksUI/Round'
 import RoundNavigation from '../PicksUI/RoundNavigation'
-
-import { withAuthorization } from '../Session';
-import { withFirebase } from '../Firebase';
 
 import './Home.css';
 
@@ -158,7 +160,6 @@ class HomePage extends React.Component {
   }
 
   setSelectedRound(roundNumber) {
-    console.log('Clicke!', roundNumber)
     var tempRoundData = this.state.roundData
     
     tempRoundData.forEach(round => {
@@ -176,20 +177,19 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="round-navigation">
+      <Container component="main" maxWidth="lg">
+        <Grid container spacing={3}>
           {
             this.state.roundData.map(round => {
               return (
                 <RoundNavigation key={round.roundNumber} name={round.name} selected={round.selected} 
-                handleRoundChoice={(e) => this.setSelectedRound(round.roundNumber)}/  
-                >
+                handleRoundChoice={(e) => this.setSelectedRound(round.roundNumber)} />
               )
             })
           }
-        </div>
+        </Grid>
         <Round data={roundData} users={this.state.users} />
-      </div>
+      </Container>
     )
   }
 }
