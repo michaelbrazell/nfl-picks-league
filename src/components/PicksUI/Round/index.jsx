@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 
-import { AuthUserContext } from '../../Session';
 import { withFirebase } from '../../Firebase';
 
 import './Round.css';
@@ -19,6 +18,9 @@ class Round extends React.Component {
     this.state = {
       roundData: this.props.data,
       userSelections: [],
+      submittedEntries: [],
+      userSubmittedEntry: [],
+      userSubmittedPreviously: false,
       roundSubmitted: false
     }
   }
@@ -99,6 +101,46 @@ class Round extends React.Component {
 
   }
 
+  componentDidMount() {
+    this.props.firebase.entries().on('value', snapshot => {
+      const entryObject = snapshot.val();
+
+      // Make sure entries isn't empty
+      if (entryObject !== null) {
+        const entryList = Object.keys(entryObject).map(key => ({
+          ...entryObject[key],
+          uid: key,
+        }));
+  
+        console.log('all entries', entryList)
+  
+        let usersEntry = entryList.filter((entry) => {
+          return entry.userId === this.props.authUser.uid
+        })
+  
+        console.log('user entry: ', usersEntry)
+  
+        if (usersEntry.length > 0) {
+          this.setState({
+            userSubmittedPreviously: true,
+            userSubmittedEntry: usersEntry[0],
+            submittedEntries: entryList,
+          })
+        } else {
+          this.setState({
+            submittedEntries: entryList
+          });
+        }
+
+      }
+
+    });
+  }
+
+  renderUserEntry(user) {
+    // foo
+  }
+
   renderSelectionParlay(selection) {
     if (!selection || selection === false) {
       return (
@@ -111,101 +153,139 @@ class Round extends React.Component {
     }
   }
 
-  onCreateEntry = (event, authUser) => {
-    event.preventDefault();
-    
-    let itemToPush = {
-      userId: authUser.uid,
-      username: authUser.username,
-      createdAt: this.props.firebase.serverValue.TIMESTAMP,
-      selections: this.state.userSelections
+  renderPreviousSelections() {
+    if (this.state.userSubmittedEntry.length > 0) {
+      return (
+        <div>
+          <Typography component="h1" variant="h5">
+            Your Previous Selections
+          </Typography>
+          {
+            this.state.userSubmittedEntry.selections.map((selection) => {
+              return (
+                <div key={selection.game}>
+                  <ul>
+                    <li>Winner: {selection.teamSelection}</li>
+                    <li>Over/Under: {selection.overUnderSelection}</li>
+                    {this.renderSelectionParlay(selection.parlay)}
+                  </ul>
+                  <Divider />
+                </div>
+              )
+            })
+          }
+        </div>
+      )
     }
-    console.log(itemToPush)
-    // this.props.firebase.entries().push({
-    //   userId: authUser.uid,
-    //   username: authUser.username,
-    //   createdAt: this.props.firebase.serverValue.TIMESTAMP,
-    //   selections: this.state.userSelections
-    // });
-    this.setState({
-      roundSubmitted: true
-    })
-  };
+  }
 
   renderSubmittedState() {
     if (this.state.roundSubmitted === true) {
       return '(Submitted)'
     }
   }
-  
+
+  onCreateEntry = (event, authUser, roundName) => {
+    event.preventDefault();
+    // THis kind of works, able to update existing entry
+    // Except it's not submitting new records yet
+    // Can probably use spread operator but running into issues 
+    // Because selections is an object.  Might want to build that outside
+    // and pass a totally new object in here
+    if (this.state.userSubmittedPreviously === true) {
+      this.props.firebase.entry(this.state.userSubmittedEntry.uid).set({
+        ...this.state.userSubmittedEntry,
+        updatedAt: this.props.firebase.serverValue.TIMESTAMP 
+      })    
+      console.log('Updating...', this.state.userSubmittedEntry.uid)  
+    } else {
+      this.props.firebase.entries().push({
+        userId: authUser.uid,
+        username: authUser.username,
+        createdAt: this.props.firebase.serverValue.TIMESTAMP,
+        selections: {
+          [roundName]: this.state.userSelections
+        }
+      });
+      console.log('Publishing New')  
+      this.setState({
+        roundSubmitted: true
+      })
+    }
+
+    // this.props.firebase.message(message.uid).set({ 
+    //   ...message, 
+    //   text, 
+    //   updatedAt: this.props.firebase.serverValue.TIMESTAMP, 
+    // }); 
+
+  };
+ 
   render() {
     return (
       <React.Fragment>
-        <AuthUserContext.Consumer>
-          {authUser => (
-            this.state.roundData.map(round => {
-              if (round.selected === true) {
-                return (
-                  <div className="round-choices" key={round.roundNumber}>
-                    <Typography component="h1" variant="h4">
-                      {round.name} Round {this.renderSubmittedState()}
-                    </Typography>
-                    <form onSubmit={event => this.onCreateEntry(event, authUser) }>
-                      <Grid container spacing={3}>
+        {this.state.roundData.map(round => {
+        if (round.selected === true) {
+          return (
+            <div className="round-choices" key={round.roundNumber}>
+              <Typography component="h1" variant="h4">
+                {round.name} Round {this.renderSubmittedState()}
+              </Typography>
+              <form onSubmit={event => this.onCreateEntry(event, this.props.authUser, round.name.toLowerCase()) }>
+                <Grid container spacing={3}>
+                {
+                  round.gameData.map(game => {
+                    return(
+                      <Grid item xs={12} sm={12} md={6} key={'round-'+round.roundNumber+'-game-'+game.gameNumber}>
+                        <Game 
+                          gameId={'round-'+round.roundNumber+'-game-'+game.gameNumber} 
+                          awayTeam={game.awayTeam} 
+                          awayTeamSpread={game.awayTeamSpread} 
+                          homeTeam={game.homeTeam} 
+                          homeTeamSpread={game.homeTeamSpread}
+                          overUnder={game.overUnder}
+                          onSelectionChange={this.onHandleSelections.bind(this)}
+                        />
+                      </Grid>
+                    )
+                  })
+                }
+                </Grid>
+                {this.state.userSelections.length > 0 &&
+                  <Container component="main" maxWidth="sm">
+                    <Paper className="round-selections paper-selections">
+                      <Typography component="h1" variant="h5">
+                        Your Selections
+                      </Typography>
                       {
-                        round.gameData.map(game => {
-                          return(
-                            <Grid item xs={12} sm={12} md={6} key={'round-'+round.roundNumber+'-game-'+game.gameNumber}>
-                              <Game 
-                                gameId={'round-'+round.roundNumber+'-game-'+game.gameNumber} 
-                                awayTeam={game.awayTeam} 
-                                awayTeamSpread={game.awayTeamSpread} 
-                                homeTeam={game.homeTeam} 
-                                homeTeamSpread={game.homeTeamSpread}
-                                overUnder={game.overUnder}
-                                onSelectionChange={this.onHandleSelections.bind(this)}
-                              />
-                            </Grid>
+                        this.state.userSelections.map( (game, i) => {
+                          return (
+                            <div key={game.game}>
+                              <p><strong>Selection {i+1}</strong></p>
+                              <ul>
+                                <li>Winner: {game.teamSelection}</li>
+                                <li>Over/Under: {game.overUnderSelection}</li>
+                                {this.renderSelectionParlay(game.parlay)}
+                              </ul>
+                              <Divider />
+                            </div>
                           )
                         })
                       }
-                      </Grid>
-                      {this.state.userSelections.length > 0 &&
-                        <Container component="main" maxWidth="sm">
-                          <Paper className="round-selections paper-selections">
-                            <Typography component="h1" variant="h5">
-                              Your Selections
-                            </Typography>
-                            {
-                              this.state.userSelections.map( (game, i) => {
-                                return (
-                                  <div key={game.gameNumber}>
-                                    <p><strong>Selection {i+1}</strong></p>
-                                    <ul>
-                                      <li>Winner: {game.teamSelection}</li>
-                                      <li>Over/Under: {game.overUnderSelection}</li>
-                                      {this.renderSelectionParlay(game.parlay)}
-                                    </ul>
-                                    <Divider />
-                                  </div>
-                                )
-                              })
-                            }
-                            <Button variant="contained" disabled type="submit" color="primary" className="submit-button">Submit {round.name} Selections</Button>
-                          </Paper>
-                        </Container>
-                      }
-                    </form>
-                  </div>
-                )
-              } else {
-                return ''
-              }
-            })
-
+                      
+                      <Button variant="contained" type="submit" color="primary" className="submit-button">Submit {round.name} Selections</Button>
+                    </Paper>
+                  </Container>
+                }
+                {this.renderPreviousSelections()}
+              </form>
+            </div>
           )
-          }
-        </AuthUserContext.Consumer>
+        } else {
+          return ''
+        }
+      })
+      }
       </React.Fragment>
     )
   }

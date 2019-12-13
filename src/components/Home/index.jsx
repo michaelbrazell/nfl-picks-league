@@ -1,6 +1,7 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { withAuthorization } from '../Session';
+import { withAuthorization, AuthUserContext } from '../Session';
+
 import { withFirebase } from '../Firebase';
 
 import Grid from '@material-ui/core/Grid';
@@ -60,35 +61,35 @@ const roundData = [
     "gameData":[
       {
         "gameNumber":1,
-        "awayTeam":"",
-        "awayTeamSpread":"",
-        "homeTeam":"",
-        "homeTeamSpread":"",
-        "overUnder":""
+        "awayTeam":"Atlanta Falcons",
+        "awayTeamSpread":"+4.5",
+        "homeTeam":"Philadelphia Eagles",
+        "homeTeamSpread":"-4.5",
+        "overUnder":"54.5"
       },
       {
         "gameNumber":2,
-        "awayTeam":"",
-        "awayTeamSpread":"",
-        "homeTeam":"",
-        "homeTeamSpread":"",
-        "overUnder":""
+        "awayTeam":"Tennessee Titans",
+        "awayTeamSpread":"+8.5",
+        "homeTeam":"New Englang Patriots",
+        "homeTeamSpread":"-8.5",
+        "overUnder":"62.5"
       },
       {
         "gameNumber":3,
-        "awayTeam":"",
-        "awayTeamSpread":"",
-        "homeTeam":"",
-        "homeTeamSpread":"",
-        "overUnder":""
+        "awayTeam":"Jacksonville Jaguars",
+        "awayTeamSpread":"+6.5",
+        "homeTeam":"Pittsburgh Steelers",
+        "homeTeamSpread":"-6.5",
+        "overUnder":"66.5"
       },
       {
         "gameNumber":4,
-        "awayTeam":"",
-        "awayTeamSpread":"",
-        "homeTeam":"",
-        "homeTeamSpread":"",
-        "overUnder":""
+        "awayTeam":"New Orleans Saints",
+        "awayTeamSpread":"-2.5",
+        "homeTeam":"Minnesota Vikings",
+        "homeTeamSpread":"+2.5",
+        "overUnder":"52.5"
       }
     ]
   },
@@ -177,19 +178,23 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <Container component="main" maxWidth="lg">
-        <Grid container spacing={3}>
-          {
-            this.state.roundData.map(round => {
-              return (
-                <RoundNavigation key={round.roundNumber} name={round.name} selected={round.selected} 
-                handleRoundChoice={(e) => this.setSelectedRound(round.roundNumber)} />
-              )
-            })
-          }
-        </Grid>
-        <Round data={roundData} users={this.state.users} />
-      </Container>
+      <AuthUserContext.Consumer>
+        {authUser => (
+          <Container component="main" maxWidth="lg">
+            <Grid container spacing={3}>
+              {
+                this.state.roundData.map(round => {
+                  return (
+                    <RoundNavigation key={round.roundNumber} name={round.name} selected={round.selected} 
+                    handleRoundChoice={(e) => this.setSelectedRound(round.roundNumber)} />
+                  )
+                })
+              }
+            </Grid>
+            <Round data={roundData} users={this.state.users} authUser={authUser} />
+          </Container>
+        )}  
+      </AuthUserContext.Consumer>
     )
   }
 }
