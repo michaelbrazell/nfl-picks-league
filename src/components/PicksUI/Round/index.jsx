@@ -187,15 +187,13 @@ class Round extends React.Component {
 
   onCreateEntry = (event, authUser, roundName) => {
     event.preventDefault();
-    // THis kind of works, able to update existing entry
-    // Except it's not submitting new records yet
-    // Can probably use spread operator but running into issues 
-    // Because selections is an object.  Might want to build that outside
-    // and pass a totally new object in here
     if (this.state.userSubmittedPreviously === true) {
       this.props.firebase.entry(this.state.userSubmittedEntry.uid).set({
-        ...this.state.userSubmittedEntry,
-        updatedAt: this.props.firebase.serverValue.TIMESTAMP 
+        selections: [...this.state.userSubmittedEntry.selections, this.state.userSelections],
+        updatedAt: this.props.firebase.serverValue.TIMESTAMP,
+        createdAt: this.state.userSubmittedEntry.createdAt,
+        userId: this.state.userSubmittedEntry.userId,
+        username: this.state.userSubmittedEntry.username        
       })    
       console.log('Updating...', this.state.userSubmittedEntry.uid)  
     } else {
@@ -203,22 +201,13 @@ class Round extends React.Component {
         userId: authUser.uid,
         username: authUser.username,
         createdAt: this.props.firebase.serverValue.TIMESTAMP,
-        selections: {
-          [roundName]: this.state.userSelections
-        }
+        selections: [this.state.userSelections]
       });
       console.log('Publishing New')  
       this.setState({
         roundSubmitted: true
       })
     }
-
-    // this.props.firebase.message(message.uid).set({ 
-    //   ...message, 
-    //   text, 
-    //   updatedAt: this.props.firebase.serverValue.TIMESTAMP, 
-    // }); 
-
   };
  
   render() {
