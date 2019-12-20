@@ -191,7 +191,19 @@ class HomePage extends React.Component {
                 })
               }
             </Grid>
-            <Round data={roundData} users={this.state.users} authUser={authUser} />
+            {
+              this.state.roundData.map(round => {
+                if (round.selected === true) {
+                  return (
+                    <Round 
+                      data={round} 
+                      users={this.state.users} 
+                      authUser={authUser}
+                      key={round.roundNumber} />
+                  )
+                }
+              })
+            }
           </Container>
         )}  
       </AuthUserContext.Consumer>

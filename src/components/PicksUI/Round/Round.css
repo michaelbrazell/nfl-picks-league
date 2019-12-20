@@ -4,9 +4,20 @@
 
 .paper-selections {
   padding: 2em;
+  margin-top: 3em;
 }
 
 .submit-button {
   width: 100%;
   margin-bottom: 0;
+}
+
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.round-container {
+  margin-top: 3em;
 }

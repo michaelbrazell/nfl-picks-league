@@ -7,6 +7,7 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { withFirebase } from '../../Firebase';
 
@@ -16,6 +17,7 @@ class Round extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      loading: true,
       roundData: this.props.data,
       userSelections: [],
       submittedEntries: [],
@@ -112,33 +114,38 @@ class Round extends React.Component {
           uid: key,
         }));
   
-        console.log('all entries', entryList)
-  
         let usersEntry = entryList.filter((entry) => {
           return entry.userId === this.props.authUser.uid
         })
-  
-        console.log('user entry: ', usersEntry)
-  
-        if (usersEntry.length > 0) {
-          this.setState({
-            userSubmittedPreviously: true,
-            userSubmittedEntry: usersEntry[0],
-            submittedEntries: entryList,
+
+        if (usersEntry[0].roundsComplete.length > 0) {
+          usersEntry[0].roundsComplete.forEach(round => {
+            if (round === this.state.roundData.name.toLowerCase()) {
+              this.setState({
+                roundSubmitted: true,
+                userSubmittedEntry: usersEntry[0],
+                submittedEntries: entryList,
+                userSubmittedPreviously: true,
+                loading: false
+              })
+            } else {
+              this.setState({
+                userSubmittedPreviously: true,
+                submittedEntries: entryList,
+                userSubmittedEntry: usersEntry[0],
+                loading: false
+              });
+            }
           })
-        } else {
-          this.setState({
-            submittedEntries: entryList
-          });
         }
 
+      } else {
+        this.setState({
+          loading: false
+        })
       }
 
     });
-  }
-
-  renderUserEntry(user) {
-    // foo
   }
 
   renderSelectionParlay(selection) {
@@ -154,31 +161,34 @@ class Round extends React.Component {
   }
 
   renderPreviousSelections() {
-    if (this.state.userSubmittedEntry.length > 0) {
+    if (this.state.roundSubmitted === true) {
       return (
-        <div>
-          <Typography component="h1" variant="h5">
-            Your Previous Selections
-          </Typography>
-          {
-            this.state.userSubmittedEntry.selections.map((selection) => {
-              return (
-                <div key={selection.game}>
-                  <ul>
-                    <li>Winner: {selection.teamSelection}</li>
-                    <li>Over/Under: {selection.overUnderSelection}</li>
-                    {this.renderSelectionParlay(selection.parlay)}
-                  </ul>
-                  <Divider />
-                </div>
-              )
-            })
-          }
-        </div>
+        <Container component="main" maxWidth="sm">
+          <Paper className="round-selections paper-selections">
+            <Typography component="h1" variant="h5">
+              Your Selections Bar
+            </Typography>
+            {
+              this.state.userSubmittedEntry.selections[this.state.roundData.roundNumber-1].map((selection) => {
+                return (
+                  <div key={selection.game}>
+                    <p>Game {selection.game[selection.game.length -1]}</p>
+                    <ul>
+                      <li>Winner: {selection.teamSelection}</li>
+                      <li>Over/Under: {selection.overUnderSelection}</li>
+                      {this.renderSelectionParlay(selection.parlay)}
+                    </ul>
+                    <Divider />
+                  </div>
+                )
+              })
+            }
+          </Paper>
+        </Container>
       )
     }
   }
-
+  
   renderSubmittedState() {
     if (this.state.roundSubmitted === true) {
       return '(Submitted)'
@@ -190,6 +200,7 @@ class Round extends React.Component {
     if (this.state.userSubmittedPreviously === true) {
       this.props.firebase.entry(this.state.userSubmittedEntry.uid).set({
         selections: [...this.state.userSubmittedEntry.selections, this.state.userSelections],
+        roundsComplete: [...this.state.userSubmittedEntry.roundsComplete, roundName],
         updatedAt: this.props.firebase.serverValue.TIMESTAMP,
         createdAt: this.state.userSubmittedEntry.createdAt,
         userId: this.state.userSubmittedEntry.userId,
@@ -201,81 +212,97 @@ class Round extends React.Component {
         userId: authUser.uid,
         username: authUser.username,
         createdAt: this.props.firebase.serverValue.TIMESTAMP,
-        selections: [this.state.userSelections]
+        selections: [this.state.userSelections],
+        roundsComplete: [roundName]
       });
       console.log('Publishing New')  
-      this.setState({
-        roundSubmitted: true
-      })
     }
   };
+
+  renderFormOrPreviousSelections() {
+    if (this.state.loading === true) {
+      return (
+        <div className="loading-container">
+          <CircularProgress />
+        </div>
+      )
+    } else {
+        if (this.state.roundSubmitted === false) {
+          return (
+            <React.Fragment>
+              <div className="round-choices" key={this.state.roundData.roundNumber}>
+                <Typography component="h1" variant="h4">
+                  {this.state.roundData.name} Round {this.renderSubmittedState()}
+                </Typography>
+                <form onSubmit={event => this.onCreateEntry(event, this.props.authUser, this.state.roundData.name.toLowerCase()) }>
+                  <Grid container spacing={3}>
+                  {
+                    this.state.roundData.gameData.map(game => {
+                      return(
+                        <Grid item xs={12} sm={12} md={6} key={'round-'+this.state.roundData.roundNumber+'-game-'+game.gameNumber}>
+                          <Game 
+                            gameId={'round-'+this.state.roundData.roundNumber+'-game-'+game.gameNumber} 
+                            awayTeam={game.awayTeam} 
+                            awayTeamSpread={game.awayTeamSpread} 
+                            homeTeam={game.homeTeam} 
+                            homeTeamSpread={game.homeTeamSpread}
+                            overUnder={game.overUnder}
+                            onSelectionChange={this.onHandleSelections.bind(this)}
+                          />
+                        </Grid>
+                      )
+                    })
+                  }
+                  </Grid>
+                  {this.state.userSelections.length > 0 &&
+                    <Container component="main" maxWidth="sm">
+                      <Paper className="round-selections paper-selections">
+                        <Typography component="h1" variant="h5">
+                          Your Selections Foo
+                        </Typography>
+                        {
+                          this.state.userSelections.map( (game, i) => {
+                            return (
+                              <div key={game.game}>
+                                <p><strong>Selection {i+1}</strong></p>
+                                <ul>
+                                  <li>Winner: {game.teamSelection}</li>
+                                  <li>Over/Under: {game.overUnderSelection}</li>
+                                  {this.renderSelectionParlay(game.parlay)}
+                                </ul>
+                                <Divider />
+                              </div>
+                            )
+                          })
+                        }
+                        
+                        <Button variant="contained" type="submit" color="primary" className="submit-button">Submit {this.state.roundData.name} Selections</Button>
+                      </Paper>
+                    </Container>
+                  }
+                  
+                </form>
+              </div>
+            </React.Fragment>
+          )
+        } else {
+          return (
+            <React.Fragment>
+              {this.renderPreviousSelections()}
+            </React.Fragment>
+          )
+        }
+    }
+  }
+
+  
+
  
   render() {
     return (
-      <React.Fragment>
-        {this.state.roundData.map(round => {
-        if (round.selected === true) {
-          return (
-            <div className="round-choices" key={round.roundNumber}>
-              <Typography component="h1" variant="h4">
-                {round.name} Round {this.renderSubmittedState()}
-              </Typography>
-              <form onSubmit={event => this.onCreateEntry(event, this.props.authUser, round.name.toLowerCase()) }>
-                <Grid container spacing={3}>
-                {
-                  round.gameData.map(game => {
-                    return(
-                      <Grid item xs={12} sm={12} md={6} key={'round-'+round.roundNumber+'-game-'+game.gameNumber}>
-                        <Game 
-                          gameId={'round-'+round.roundNumber+'-game-'+game.gameNumber} 
-                          awayTeam={game.awayTeam} 
-                          awayTeamSpread={game.awayTeamSpread} 
-                          homeTeam={game.homeTeam} 
-                          homeTeamSpread={game.homeTeamSpread}
-                          overUnder={game.overUnder}
-                          onSelectionChange={this.onHandleSelections.bind(this)}
-                        />
-                      </Grid>
-                    )
-                  })
-                }
-                </Grid>
-                {this.state.userSelections.length > 0 &&
-                  <Container component="main" maxWidth="sm">
-                    <Paper className="round-selections paper-selections">
-                      <Typography component="h1" variant="h5">
-                        Your Selections
-                      </Typography>
-                      {
-                        this.state.userSelections.map( (game, i) => {
-                          return (
-                            <div key={game.game}>
-                              <p><strong>Selection {i+1}</strong></p>
-                              <ul>
-                                <li>Winner: {game.teamSelection}</li>
-                                <li>Over/Under: {game.overUnderSelection}</li>
-                                {this.renderSelectionParlay(game.parlay)}
-                              </ul>
-                              <Divider />
-                            </div>
-                          )
-                        })
-                      }
-                      
-                      <Button variant="contained" type="submit" color="primary" className="submit-button">Submit {round.name} Selections</Button>
-                    </Paper>
-                  </Container>
-                }
-                {this.renderPreviousSelections()}
-              </form>
-            </div>
-          )
-        } else {
-          return ''
-        }
-      })
-      }
-      </React.Fragment>
+      <div className="round-container">
+        {this.renderFormOrPreviousSelections()}
+      </div>
     )
   }
 }
