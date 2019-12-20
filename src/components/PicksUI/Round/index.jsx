@@ -166,7 +166,7 @@ class Round extends React.Component {
         <Container component="main" maxWidth="sm">
           <Paper className="round-selections paper-selections">
             <Typography component="h1" variant="h5">
-              Your Selections Bar
+              Your Selections
             </Typography>
             {
               this.state.userSubmittedEntry.selections[this.state.roundData.roundNumber-1].map((selection) => {
@@ -206,7 +206,6 @@ class Round extends React.Component {
         userId: this.state.userSubmittedEntry.userId,
         username: this.state.userSubmittedEntry.username        
       })    
-      console.log('Updating...', this.state.userSubmittedEntry.uid)  
     } else {
       this.props.firebase.entries().push({
         userId: authUser.uid,
@@ -215,7 +214,6 @@ class Round extends React.Component {
         selections: [this.state.userSelections],
         roundsComplete: [roundName]
       });
-      console.log('Publishing New')  
     }
   };
 
@@ -258,7 +256,7 @@ class Round extends React.Component {
                     <Container component="main" maxWidth="sm">
                       <Paper className="round-selections paper-selections">
                         <Typography component="h1" variant="h5">
-                          Your Selections Foo
+                          Your Selections
                         </Typography>
                         {
                           this.state.userSelections.map( (game, i) => {
