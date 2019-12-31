@@ -198,8 +198,9 @@ class Round extends React.Component {
   onCreateEntry = (event, authUser, roundName) => {
     event.preventDefault();
     if (this.state.userSubmittedPreviously === true) {
+      let sortedSelections = this.state.userSelections.sort((a, b) => (a.game > b.game) ? 1 : -1);
       this.props.firebase.entry(this.state.userSubmittedEntry.uid).set({
-        selections: [...this.state.userSubmittedEntry.selections, this.state.userSelections],
+        selections: [...this.state.userSubmittedEntry.selections, sortedSelections],
         roundsComplete: [...this.state.userSubmittedEntry.roundsComplete, roundName],
         updatedAt: this.props.firebase.serverValue.TIMESTAMP,
         createdAt: this.state.userSubmittedEntry.createdAt,
@@ -207,11 +208,12 @@ class Round extends React.Component {
         username: this.state.userSubmittedEntry.username        
       })    
     } else {
+      let sortedSelections = this.state.userSelections.sort((a, b) => (a.game > b.game) ? 1 : -1);
       this.props.firebase.entries().push({
         userId: authUser.uid,
         username: authUser.username,
         createdAt: this.props.firebase.serverValue.TIMESTAMP,
-        selections: [this.state.userSelections],
+        selections: [sortedSelections],
         roundsComplete: [roundName]
       });
     }
