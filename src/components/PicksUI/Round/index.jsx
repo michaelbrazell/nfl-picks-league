@@ -117,8 +117,8 @@ class Round extends React.Component {
         let usersEntry = entryList.filter((entry) => {
           return entry.userId === this.props.authUser.uid
         })
-
-        if (usersEntry[0].roundsComplete.length > 0) {
+        
+        if (usersEntry.length > 0 && usersEntry[0].roundsComplete.length > 0) {
           usersEntry[0].roundsComplete.forEach(round => {
             if (round === this.state.roundData.name.toLowerCase()) {
               this.setState({
@@ -136,6 +136,10 @@ class Round extends React.Component {
                 loading: false
               });
             }
+          })
+        } else {
+          this.setState({
+            loading: false
           })
         }
 

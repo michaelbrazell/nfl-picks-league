@@ -50,8 +50,8 @@ const NavigationAuth = ({ authUser }) => (
     </AppBar>
     <div className="sub-navigation">
       <ul>
+        <li><Link to={ROUTES.LANDING}>Home</Link></li>
         <li><Link to={ROUTES.HOME}>Picks</Link></li>
-        <li><Link to={ROUTES.RESULTS}>Results</Link></li>
         <li><Link to={ROUTES.STANDINGS}>Standings</Link></li>
       </ul>
     </div>
