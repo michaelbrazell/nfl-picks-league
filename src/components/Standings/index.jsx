@@ -39,48 +39,54 @@ class StandingsPage extends React.Component {
           userId: entry.userId,
           uid: entry.uid,
           wins: [],
-          losses: []
+          losses: [],
+          winPercentage: null
         }
         entry.selections.forEach(round => {
           round.forEach(game => {
-            // If parlay === true, has to match both conditions.  If both conditions hit, add extra win.  If not, add 2 losses
-            if (game.parlay === true) {
-              officialResults.selections.forEach(officialRound => {
-                officialRound.forEach(officialGame => {
-                  if (game.game === officialGame.game) {
-                    if (game.teamSelection === officialGame.teamSelection && game.overUnderSelection === officialGame.overUnderSelection) {
-                      gameResults.wins.push([game.game+' (Parlay)', game.teamSelection])
-                      gameResults.wins.push([game.game+' (Parlay)', game.overUnderSelection])
-                      gameResults.wins.push([game.game+' (Parlay)', 'Parlay Bonus'])
-                    } else {
-                      gameResults.losses.push([game.game+' (Parlay)', game.teamSelection])
-                      gameResults.losses.push([game.game+' (Parlay)', game.overUnderSelection])
+            // DO not do anything unless official results are submitted
+            if (officialResults.selections.length > 0) {
+              // If parlay === true, has to match both conditions.  If both conditions hit, add extra win.  If not, add 2 losses  
+              if (game.parlay === true) {
+                officialResults.selections.forEach(officialRound => {
+                  officialRound.forEach(officialGame => {
+                    if (game.game === officialGame.game) {
+                      if (game.teamSelection === officialGame.teamSelection && game.overUnderSelection === officialGame.overUnderSelection) {
+                        gameResults.wins.push([game.game+' (Parlay)', game.teamSelection])
+                        gameResults.wins.push([game.game+' (Parlay)', game.overUnderSelection])
+                        gameResults.wins.push([game.game+' (Parlay)', 'Parlay Bonus'])
+                      } else {
+                        gameResults.losses.push([game.game+' (Parlay)', game.teamSelection])
+                        gameResults.losses.push([game.game+' (Parlay)', game.overUnderSelection])
+                      }
                     }
-                  }
+                  })
                 })
-              })
-            } else {
-              // If Parlay === false, do a normal check
-              officialResults.selections.forEach(officialRound => {
-                officialRound.forEach(officialGame => {
-                  if (game.game === officialGame.game) {
-                    if (game.teamSelection === officialGame.teamSelection) {
-                      gameResults.wins.push([game.game, game.teamSelection])
-                    } else {
-                      gameResults.losses.push([game.game, game.teamSelection])
+              } else {
+                // If Parlay === false, do a normal check
+                officialResults.selections.forEach(officialRound => {
+                  officialRound.forEach(officialGame => {
+                    if (game.game === officialGame.game) {
+                      if (game.teamSelection === officialGame.teamSelection) {
+                        gameResults.wins.push([game.game, game.teamSelection])
+                      } else {
+                        gameResults.losses.push([game.game, game.teamSelection])
+                      }
+                      if (game.overUnderSelection === officialGame.overUnderSelection) {
+                        gameResults.wins.push([game.game, game.overUnderSelection])
+                      } else {
+                        gameResults.losses.push([game.game, game.overUnderSelection])
+                      }
                     }
-                    if (game.overUnderSelection === officialGame.overUnderSelection) {
-                      gameResults.wins.push([game.game, game.overUnderSelection])
-                    } else {
-                      gameResults.losses.push([game.game, game.overUnderSelection])
-                    }
-                  }
+                  })
                 })
-              })
+              }
+
             }
-            
           })
         })
+        let totalGames = gameResults.wins.length + gameResults.losses.length
+        gameResults.winPercentage = gameResults.wins.length / totalGames
         this.setState({
           standingsData: [...this.state.standingsData, gameResults]
         })
@@ -152,6 +158,7 @@ class StandingsPage extends React.Component {
                   <TableCell>Name</TableCell>
                   <TableCell align="right">Wins</TableCell>
                   <TableCell align="right">Losses</TableCell>
+                  <TableCell align="right">Win %</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -166,14 +173,14 @@ class StandingsPage extends React.Component {
                         <Tooltip title={this.renderTooltipItems(entry.wins)} placement="top">
                           <span className="standings-context">{entry.wins.length}</span>
                         </Tooltip>
-                        
-                          
-                        
                       </TableCell>
                       <TableCell align="right">
                         <Tooltip title={this.renderTooltipItems(entry.losses)} placement="top">
                           <span className="standings-context">{entry.losses.length}</span>
                         </Tooltip>
+                      </TableCell>
+                      <TableCell align="right">
+                        {entry.winPercentage.toFixed(3)}
                       </TableCell>
                     </TableRow>
                   )

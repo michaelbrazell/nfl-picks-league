@@ -16,7 +16,6 @@ const AccountPage = () => (
   <AuthUserContext.Consumer>
     {authUser => (
       <Container component="main" maxWidth="sm">
-        {console.log(authUser)}
         <Paper className="paper-sign-in">
           <Typography component="h1" variant="h5">
             Hi {authUser.username}!

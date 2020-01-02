@@ -58,7 +58,6 @@ class Editor extends React.Component {
   }
 
   render() {
-    console.log(this.state.gameData)
     return (
       <div className="admin-game-form">
         <h2>{this.props.roundName}</h2>
