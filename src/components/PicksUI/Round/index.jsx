@@ -152,6 +152,10 @@ class Round extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    this.props.firebase.entries().off();
+  }
+
   renderSelectionParlay(selection) {
     if (!selection || selection === false) {
       return (

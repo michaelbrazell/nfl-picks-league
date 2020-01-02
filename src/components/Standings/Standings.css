@@ -1,3 +1,12 @@
 .order {
   width: 2em;
 }
+
+ul.standings-items {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+ul.standings-items li {
+  list-style-type: none;
+}

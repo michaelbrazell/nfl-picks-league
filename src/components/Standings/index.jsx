@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import { withFirebase } from '../Firebase';
 
@@ -18,8 +19,56 @@ class StandingsPage extends React.Component {
     super(props)
     this.state = {
       loading: true,
+      entries: [],
       standingsData: []
     }
+  }
+
+  scoreBracket() {
+    let officialResults = []
+    this.state.entries.forEach(entry => {
+      if (entry.username === 'MikeTest') {
+        officialResults = entry
+      }
+    })
+
+    this.state.entries.forEach(entry => {
+      if (entry.username !== 'MikeTest') {
+        let gameResults = {
+          username: entry.username,
+          userId: entry.userId,
+          uid: entry.uid,
+          wins: [],
+          losses: []
+        }
+        entry.selections.forEach(round => {
+          round.forEach(game => {
+            // Need to add in the parlay check
+            officialResults.selections.forEach(officialRound => {
+              officialRound.forEach(officialGame => {
+                if (game.game === officialGame.game) {
+                  if (game.teamSelection === officialGame.teamSelection) {
+                    gameResults.wins.push([game.game, game.teamSelection])
+                  } else {
+                    gameResults.losses.push([game.game, game.teamSelection])
+                  }
+                  if (game.overUnderSelection === officialGame.overUnderSelection) {
+                    gameResults.wins.push([game.game, game.overUnderSelection])
+                  } else {
+                    gameResults.losses.push([game.game, game.overUnderSelection])
+                  }
+                }
+              })
+            })
+            
+          })
+        })
+        this.setState({
+          standingsData: [...this.state.standingsData, gameResults]
+        })
+        console.log('Results', this.state.standingsData)
+      }
+    })
   }
 
   componentDidMount() {
@@ -35,8 +84,10 @@ class StandingsPage extends React.Component {
 
         this.setState({
           loading: false,
-          standingsData: entryList
+          entries: entryList
         })
+
+        this.scoreBracket()
 
       } else {
         this.setState({
@@ -46,6 +97,24 @@ class StandingsPage extends React.Component {
 
     });
   }
+
+  componentWillUnmount() {
+    this.props.firebase.entries().off();
+  }
+
+  renderTooltipItems(items) {
+    return (
+      <React.Fragment>
+        <p>Selections:</p>
+        <ul className="standings-items">
+          {items.map((item, i) => {
+            return <li key={i+item[0]}>{item[0]}, {item[1]}</li>
+          })}
+        </ul>
+      </React.Fragment>
+    )
+  }
+
 
   renderLoadingOrResults() {
     if (this.state.loading === true) {
@@ -58,6 +127,7 @@ class StandingsPage extends React.Component {
       return (
         <Container component="main" maxWidth="lg">
           <Paper>
+            
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -65,7 +135,6 @@ class StandingsPage extends React.Component {
                   <TableCell>Name</TableCell>
                   <TableCell align="right">Wins</TableCell>
                   <TableCell align="right">Losses</TableCell>
-                  <TableCell align="right">Ties</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -76,9 +145,19 @@ class StandingsPage extends React.Component {
                       <TableCell component="th" scope="row">
                         {entry.username}
                       </TableCell>
-                      <TableCell align="right">{entry.wins}</TableCell>
-                      <TableCell align="right">{entry.losses}</TableCell>
-                      <TableCell align="right">{entry.ties}</TableCell>
+                      <TableCell align="right">
+                        <Tooltip title={this.renderTooltipItems(entry.wins)} placement="top">
+                          <span className="standings-context">{entry.wins.length}</span>
+                        </Tooltip>
+                        
+                          
+                        
+                      </TableCell>
+                      <TableCell align="right">
+                        <Tooltip title={this.renderTooltipItems(entry.losses)} placement="top">
+                          <span className="standings-context">{entry.losses.length}</span>
+                        </Tooltip>
+                      </TableCell>
                     </TableRow>
                   )
                 })}
