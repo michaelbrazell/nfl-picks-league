@@ -25,7 +25,8 @@ const roundData = [
         "awayTeamSpread":"+2.5",
         "homeTeam":"Houston Texans",
         "homeTeamSpread":"-2.5",
-        "overUnder":"43"
+        "overUnder":"43",
+        "gameDetails":"Saturday, Jan. 4, 4:35pm"
       },
       {
         "gameNumber":2,
@@ -33,7 +34,8 @@ const roundData = [
         "awayTeamSpread":"+4.5",
         "homeTeam":"New England Patriots",
         "homeTeamSpread":"-4.5",
-        "overUnder":"44"
+        "overUnder":"44",
+        "gameDetails":"Saturday, Jan. 4, 8:15pm"
       },
       {
         "gameNumber":3,
@@ -41,7 +43,8 @@ const roundData = [
         "awayTeamSpread":"+8",
         "homeTeam":"New Orleans Saints",
         "homeTeamSpread":"-8",
-        "overUnder":"49"
+        "overUnder":"49",
+        "gameDetails":"Sunday, Jan. 5, 1:05pm"
       },
       {
         "gameNumber":4,
@@ -49,7 +52,8 @@ const roundData = [
         "awayTeamSpread":"-2",
         "homeTeam":"Philadelphia Eagles",
         "homeTeamSpread":"+2",
-        "overUnder":"45.5"
+        "overUnder":"45.5",
+        "gameDetails":"Sunday, Jan. 5, 4:40pm"
       }
     ]
   },
@@ -65,7 +69,8 @@ const roundData = [
         "awayTeamSpread":"+4.5",
         "homeTeam":"Philadelphia Eagles",
         "homeTeamSpread":"-4.5",
-        "overUnder":"54.5"
+        "overUnder":"54.5",
+        "gameDetails":""
       },
       {
         "gameNumber":2,
@@ -73,7 +78,8 @@ const roundData = [
         "awayTeamSpread":"+8.5",
         "homeTeam":"New Englang Patriots",
         "homeTeamSpread":"-8.5",
-        "overUnder":"62.5"
+        "overUnder":"62.5",
+        "gameDetails":""
       },
       {
         "gameNumber":3,
@@ -81,7 +87,8 @@ const roundData = [
         "awayTeamSpread":"+6.5",
         "homeTeam":"Pittsburgh Steelers",
         "homeTeamSpread":"-6.5",
-        "overUnder":"66.5"
+        "overUnder":"66.5",
+        "gameDetails":""
       },
       {
         "gameNumber":4,
@@ -89,7 +96,8 @@ const roundData = [
         "awayTeamSpread":"-2.5",
         "homeTeam":"Minnesota Vikings",
         "homeTeamSpread":"+2.5",
-        "overUnder":"52.5"
+        "overUnder":"52.5",
+        "gameDetails":""
       }
     ]
   },
@@ -105,7 +113,8 @@ const roundData = [
         "awayTeamSpread":"",
         "homeTeam":"",
         "homeTeamSpread":"",
-        "overUnder":""
+        "overUnder":"",
+        "gameDetails":""
       },
       {
         "gameNumber":2,
@@ -113,7 +122,8 @@ const roundData = [
         "awayTeamSpread":"",
         "homeTeam":"",
         "homeTeamSpread":"",
-        "overUnder":""
+        "overUnder":"",
+        "gameDetails":""
       }
     ]
   },
@@ -129,7 +139,8 @@ const roundData = [
         "awayTeamSpread":"",
         "homeTeam":"",
         "homeTeamSpread":"",
-        "overUnder":""
+        "overUnder":"",
+        "gameDetails":""
       }
     ]
   }

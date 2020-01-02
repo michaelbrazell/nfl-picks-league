@@ -43,23 +43,41 @@ class StandingsPage extends React.Component {
         }
         entry.selections.forEach(round => {
           round.forEach(game => {
-            // Need to add in the parlay check
-            officialResults.selections.forEach(officialRound => {
-              officialRound.forEach(officialGame => {
-                if (game.game === officialGame.game) {
-                  if (game.teamSelection === officialGame.teamSelection) {
-                    gameResults.wins.push([game.game, game.teamSelection])
-                  } else {
-                    gameResults.losses.push([game.game, game.teamSelection])
+            // If parlay === true, has to match both conditions.  If both conditions hit, add extra win.  If not, add 2 losses
+            if (game.parlay === true) {
+              officialResults.selections.forEach(officialRound => {
+                officialRound.forEach(officialGame => {
+                  if (game.game === officialGame.game) {
+                    if (game.teamSelection === officialGame.teamSelection && game.overUnderSelection === officialGame.overUnderSelection) {
+                      gameResults.wins.push([game.game+' (Parlay)', game.teamSelection])
+                      gameResults.wins.push([game.game+' (Parlay)', game.overUnderSelection])
+                      gameResults.wins.push([game.game+' (Parlay)', 'Parlay Bonus'])
+                    } else {
+                      gameResults.losses.push([game.game+' (Parlay)', game.teamSelection])
+                      gameResults.losses.push([game.game+' (Parlay)', game.overUnderSelection])
+                    }
                   }
-                  if (game.overUnderSelection === officialGame.overUnderSelection) {
-                    gameResults.wins.push([game.game, game.overUnderSelection])
-                  } else {
-                    gameResults.losses.push([game.game, game.overUnderSelection])
-                  }
-                }
+                })
               })
-            })
+            } else {
+              // If Parlay === false, do a normal check
+              officialResults.selections.forEach(officialRound => {
+                officialRound.forEach(officialGame => {
+                  if (game.game === officialGame.game) {
+                    if (game.teamSelection === officialGame.teamSelection) {
+                      gameResults.wins.push([game.game, game.teamSelection])
+                    } else {
+                      gameResults.losses.push([game.game, game.teamSelection])
+                    }
+                    if (game.overUnderSelection === officialGame.overUnderSelection) {
+                      gameResults.wins.push([game.game, game.overUnderSelection])
+                    } else {
+                      gameResults.losses.push([game.game, game.overUnderSelection])
+                    }
+                  }
+                })
+              })
+            }
             
           })
         })

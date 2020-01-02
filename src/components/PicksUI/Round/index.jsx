@@ -171,27 +171,53 @@ class Round extends React.Component {
   renderPreviousSelections() {
     if (this.state.roundSubmitted === true) {
       return (
-        <Container component="main" maxWidth="sm">
-          <Paper className="round-selections paper-selections">
-            <Typography component="h1" variant="h5">
-              Your Selections
-            </Typography>
-            {
-              this.state.userSubmittedEntry.selections[this.state.roundData.roundNumber-1].map((selection) => {
-                return (
-                  <div key={selection.game}>
-                    <p>Game {selection.game[selection.game.length -1]}</p>
-                    <ul>
-                      <li>Winner: {selection.teamSelection}</li>
-                      <li>Over/Under: {selection.overUnderSelection}</li>
-                      {this.renderSelectionParlay(selection.parlay)}
-                    </ul>
-                    <Divider />
-                  </div>
-                )
-              })
-            }
-          </Paper>
+        <Container component="main" maxWidth="lg">
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={12} md={6}>
+              <Paper className="round-selections paper-selections">
+                <Typography component="h1" variant="h5">
+                  Your Selections
+                </Typography>
+                {
+                  this.state.userSubmittedEntry.selections[this.state.roundData.roundNumber-1].map((selection) => {
+                    return (
+                      <div key={selection.game}>
+                        <p>Game {selection.game[selection.game.length -1]}</p>
+                        <ul>
+                          <li>Winner: {selection.teamSelection}</li>
+                          <li>Over/Under: {selection.overUnderSelection}</li>
+                          {this.renderSelectionParlay(selection.parlay)}
+                        </ul>
+                        <Divider />
+                      </div>
+                    )
+                  })
+                }
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+              <Paper className="round-selections paper-selections">
+                <Typography component="h1" variant="h5">
+                  Games
+                </Typography>
+                {
+                  this.state.roundData.gameData.map(game => {
+                    return (
+                      <div key={game.gameNumber}>
+                        <p>Game {game.gameNumber}</p>
+                        <ul>
+                          <li><strong>Matchup: </strong>{game.awayTeam} ({game.awayTeamSpread}) @ {game.homeTeam} ({game.homeTeamSpread})</li>
+                          <li><strong>Over/Under:</strong> {game.overUnder} points</li>
+                          <li><strong>Details:</strong> {game.gameDetails}</li>
+                        </ul>
+                        <Divider />
+                      </div>
+                    )
+                  })
+                }
+              </Paper>
+            </Grid>
+          </Grid>
         </Container>
       )
     }
