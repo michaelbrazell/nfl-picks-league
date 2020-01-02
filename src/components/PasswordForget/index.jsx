@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 const PasswordForgetPage = () => (
   <div>
     <h1>PasswordForget</h1>
@@ -49,16 +52,25 @@ class PasswordForgetFormBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <input
+        <TextField
           name="email"
           value={this.state.email}
           onChange={this.onChange}
           type="text"
           placeholder="Email Address"
+          variant="outlined"
+          margin="normal"
+          fullWidth
         />
-        <button disabled={isInvalid} type="submit">
+
+        <Button 
+          type="submit" 
+          disabled={isInvalid}
+          variant="contained"
+          color="primary"
+          fullWidth>
           Reset My Password
-        </button>
+        </Button>
 
         {error && <p>{error.message}</p>}
       </form>
