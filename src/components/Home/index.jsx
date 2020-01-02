@@ -199,8 +199,11 @@ class HomePage extends React.Component {
                       data={round} 
                       users={this.state.users} 
                       authUser={authUser}
-                      key={round.roundNumber} />
+                      key={round.roundNumber} 
+                      active={round.active} />
                   )
+                } else {
+                  return ''
                 }
               })
             }

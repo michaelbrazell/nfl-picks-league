@@ -223,6 +223,25 @@ class Round extends React.Component {
     }
   };
 
+  renderSubmitButton() {
+    if (this.state.userSelections.length >= 4) {
+      let finishedGames = [];
+      this.state.userSelections.forEach(game => {
+        if (game.teamSelection !== undefined && game.overUnderSelection !== undefined) {
+          finishedGames.push(game)
+        }
+      })
+      
+      if (finishedGames.length >= 4) {
+        return <Button variant="contained" type="submit" color="primary" className="submit-button">Submit {this.state.roundData.name} Selections</Button>
+      } else {
+        return <Button disabled variant="contained" type="submit" color="primary" className="submit-button">Submit {this.state.roundData.name} Selections</Button>
+      }      
+    } else {
+      return <Button disabled variant="contained" type="submit" color="primary" className="submit-button">Submit {this.state.roundData.name} Selections</Button>
+    }
+  }
+
   renderFormOrPreviousSelections() {
     if (this.state.loading === true) {
       return (
@@ -279,8 +298,8 @@ class Round extends React.Component {
                             )
                           })
                         }
-                        
-                        <Button variant="contained" type="submit" color="primary" className="submit-button">Submit {this.state.roundData.name} Selections</Button>
+
+                        {this.renderSubmitButton()}
                       </Paper>
                     </Container>
                   }
@@ -299,13 +318,21 @@ class Round extends React.Component {
     }
   }
 
-  
+  renderRoundIfActive() {
+    if (this.props.active === true) {
+      return this.renderFormOrPreviousSelections()
+    } else {
+      return (
+        <h1 className="centered">This round is not yet active</h1>
+      )
+    }
+  }
 
  
   render() {
     return (
       <div className="round-container">
-        {this.renderFormOrPreviousSelections()}
+        {this.renderRoundIfActive()}
       </div>
     )
   }
