@@ -159,13 +159,13 @@ class SignUpFormBase extends Component {
               placeholder="Confirm Password"
               autoComplete="current-password"
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox name="isAdmin" checked={isAdmin} 
               onChange={this.onChangeCheckbox} value="is-admin" color="primary" />}
               label="Is Admin"
-            />
+            /> */}
             <p>
-              <small>Your data will not be used in any way other than for required functionality in this Pick'em league.
+              <small>Your data will not be used in any way other than for required functionality in this picks league.
                 Your email address will not be visible to anybody.  Your username will be used to identify your league results.
               </small>
             </p>

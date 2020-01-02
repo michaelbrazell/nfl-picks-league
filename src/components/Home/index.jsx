@@ -25,7 +25,7 @@ const roundData = [
         "awayTeamSpread":"+2.5",
         "homeTeam":"Houston Texans",
         "homeTeamSpread":"-2.5",
-        "overUnder":"43",
+        "overUnder":"43.5",
         "gameDetails":"Saturday, Jan. 4, 4:35pm"
       },
       {
@@ -34,24 +34,24 @@ const roundData = [
         "awayTeamSpread":"+4.5",
         "homeTeam":"New England Patriots",
         "homeTeamSpread":"-4.5",
-        "overUnder":"44",
+        "overUnder":"44.5",
         "gameDetails":"Saturday, Jan. 4, 8:15pm"
       },
       {
         "gameNumber":3,
         "awayTeam":"Minnesota Vikings",
-        "awayTeamSpread":"+8",
+        "awayTeamSpread":"+7.5",
         "homeTeam":"New Orleans Saints",
-        "homeTeamSpread":"-8",
-        "overUnder":"49",
+        "homeTeamSpread":"-7.5",
+        "overUnder":"49.5",
         "gameDetails":"Sunday, Jan. 5, 1:05pm"
       },
       {
         "gameNumber":4,
         "awayTeam":"Seattle Seahawks",
-        "awayTeamSpread":"-2",
+        "awayTeamSpread":"-1.5",
         "homeTeam":"Philadelphia Eagles",
-        "homeTeamSpread":"+2",
+        "homeTeamSpread":"+1.5",
         "overUnder":"45.5",
         "gameDetails":"Sunday, Jan. 5, 4:40pm"
       }
@@ -65,38 +65,38 @@ const roundData = [
     "gameData":[
       {
         "gameNumber":1,
-        "awayTeam":"Atlanta Falcons",
-        "awayTeamSpread":"+4.5",
-        "homeTeam":"Philadelphia Eagles",
-        "homeTeamSpread":"-4.5",
-        "overUnder":"54.5",
+        "awayTeam":"",
+        "awayTeamSpread":"",
+        "homeTeam":"",
+        "homeTeamSpread":"",
+        "overUnder":"",
         "gameDetails":""
       },
       {
         "gameNumber":2,
-        "awayTeam":"Tennessee Titans",
-        "awayTeamSpread":"+8.5",
-        "homeTeam":"New Englang Patriots",
-        "homeTeamSpread":"-8.5",
-        "overUnder":"62.5",
+        "awayTeam":"",
+        "awayTeamSpread":"",
+        "homeTeam":"",
+        "homeTeamSpread":"",
+        "overUnder":"",
         "gameDetails":""
       },
       {
         "gameNumber":3,
-        "awayTeam":"Jacksonville Jaguars",
-        "awayTeamSpread":"+6.5",
-        "homeTeam":"Pittsburgh Steelers",
-        "homeTeamSpread":"-6.5",
-        "overUnder":"66.5",
+        "awayTeam":"",
+        "awayTeamSpread":"",
+        "homeTeam":"",
+        "homeTeamSpread":"",
+        "overUnder":"",
         "gameDetails":""
       },
       {
         "gameNumber":4,
-        "awayTeam":"New Orleans Saints",
-        "awayTeamSpread":"-2.5",
-        "homeTeam":"Minnesota Vikings",
-        "homeTeamSpread":"+2.5",
-        "overUnder":"52.5",
+        "awayTeam":"",
+        "awayTeamSpread":"",
+        "homeTeam":"",
+        "homeTeamSpread":"",
+        "overUnder":"",
         "gameDetails":""
       }
     ]

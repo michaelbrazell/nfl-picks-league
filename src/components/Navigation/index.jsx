@@ -31,7 +31,7 @@ const NavigationAuth = ({ authUser }) => (
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className="title">
-          <Link to={ROUTES.HOME}>Playoff Pick'em League</Link>
+          <Link to={ROUTES.HOME}>Playoff Picks League</Link>
         </Typography>
         <Link to={ROUTES.ACCOUNT}>
           <MenuItem>
@@ -63,7 +63,7 @@ const NavigationNonAuth = () => (
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className="title">
-          <Link to={ROUTES.LANDING}>Playoff Pick'em League</Link>
+          <Link to={ROUTES.LANDING}>Playoff Picks League</Link>
         </Typography>
         <Link to={ROUTES.SIGN_IN}>
           <MenuItem>

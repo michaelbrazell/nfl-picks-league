@@ -14,9 +14,9 @@ const Landing = () => (
   <Container component="main" maxWidth="lg">
     <Paper className="paper-landing">
       <Typography component="h1" variant="h4" className="centered">
-        NFL Playoff Pick'em League
+        Playoff Picks League
       </Typography>
-      <p className="centered">Welcome to the NFL Playoffs Pick'em League.  Get started below.</p>
+      <p className="centered">Welcome to the Playoff Picks League.  Get started below.</p>
       <Container maxWidth="md">
         <Grid container spacing={3}>
           <Grid item xs={12} sm={12} md={6}>

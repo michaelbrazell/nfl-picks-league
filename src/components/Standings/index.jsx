@@ -27,13 +27,13 @@ class StandingsPage extends React.Component {
   scoreBracket() {
     let officialResults = []
     this.state.entries.forEach(entry => {
-      if (entry.username === 'MikeTest') {
+      if (entry.username === 'OfficialAdmin') {
         officialResults = entry
       }
     })
 
     this.state.entries.forEach(entry => {
-      if (entry.username !== 'MikeTest') {
+      if (entry.username !== 'OfficialAdmin') {
         let gameResults = {
           username: entry.username,
           userId: entry.userId,
@@ -84,7 +84,6 @@ class StandingsPage extends React.Component {
         this.setState({
           standingsData: [...this.state.standingsData, gameResults]
         })
-        console.log('Results', this.state.standingsData)
       }
     })
   }
