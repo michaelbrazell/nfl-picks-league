@@ -9,6 +9,12 @@
   color: #f50057;
 }
 
+.round:hover {
+  background-color: #f50057;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
 .round.active {
   background: #f50057;
   color: #fff;

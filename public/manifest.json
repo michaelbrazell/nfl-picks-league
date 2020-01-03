@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Playoff Picks League",
+  "name": "A group pick'em league for the playoffs",
   "icons": [
     {
       "src": "favicon.ico",

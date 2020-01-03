@@ -16,14 +16,14 @@ const Landing = () => (
       <Typography component="h1" variant="h4" className="centered">
         Playoff Picks League
       </Typography>
-      <p className="centered">Welcome to the Playoff Picks League.  Get started below.</p>
+      <p className="centered">Welcome to the Playoff Picks League.  <Link to={ROUTES.HOME} className="body-link">Create an account</Link> to get started.</p>
       <Container maxWidth="md">
         <Grid container spacing={3}>
           <Grid item xs={12} sm={12} md={6}>
             <Button component={Link} to={ROUTES.HOME} variant="contained" type="submit" color="primary" className="submit-button">Make your Picks</Button>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
-            <Button component={Link} to={ROUTES.STANDINGS} variant="contained" type="submit" color="primary" className="submit-button">View Standings</Button>
+            <Button component={Link} to={ROUTES.STANDINGS} variant="outlined" type="submit" color="primary" className="submit-button">View Standings</Button>
           </Grid>
         </Grid>
       </Container>
@@ -73,7 +73,6 @@ const Landing = () => (
           </p>
           <h3>Standings</h3>
           <p>The Standings will be updated once all games have been played for that week.  <br/>
-          Note:  Until standings update, game results may show as losses.  This is a known bug.  It might be fixed by Saturday.  Don't bet on it. <br/>
           Note:  Standings may not be the official result.  This is the first year running this so the results will be verified manually.
           </p>
           
