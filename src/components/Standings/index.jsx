@@ -44,8 +44,8 @@ class StandingsPage extends React.Component {
         }
         entry.selections.forEach(round => {
           round.forEach(game => {
-            // DO not do anything unless official results are submitted
-            if (officialResults.selections.length > 0) {
+            // Do not do anything unless official results are submitted
+            if (officialResults.length > 0 && officialResults.selections.length > 0) {
               // If parlay === true, has to match both conditions.  If both conditions hit, add extra win.  If not, add 2 losses  
               if (game.parlay === true) {
                 officialResults.selections.forEach(officialRound => {
@@ -85,8 +85,16 @@ class StandingsPage extends React.Component {
             }
           })
         })
+        // Calculate win percentage
         let totalGames = gameResults.wins.length + gameResults.losses.length
-        gameResults.winPercentage = gameResults.wins.length / totalGames
+        let winPercentage = gameResults.wins.length / totalGames
+
+        if (isNaN(winPercentage)) {
+          gameResults.winPercentage = 1
+        } else {
+          gameResults.winPercentage = winPercentage
+        }
+
         this.setState({
           standingsData: [...this.state.standingsData, gameResults]
         })
