@@ -45,7 +45,7 @@ class StandingsPage extends React.Component {
         entry.selections.forEach(round => {
           round.forEach(game => {
             // Do not do anything unless official results are submitted
-            if (officialResults.length > 0 && officialResults.selections.length > 0) {
+            if (officialResults.selections.length > 0) {
               // If parlay === true, has to match both conditions.  If both conditions hit, add extra win.  If not, add 2 losses  
               if (game.parlay === true) {
                 officialResults.selections.forEach(officialRound => {
@@ -146,6 +146,37 @@ class StandingsPage extends React.Component {
     )
   }
 
+  sortedTable() {
+    let sortedStandings = this.state.standingsData.sort((a, b) => (a.winPercentage < b.winPercentage) ? 1 : -1);
+    return (
+      <TableBody>
+        {sortedStandings.map((entry, i) => {
+          return (
+            <TableRow key={entry.userId}>
+              <TableCell className="order">{i+1}</TableCell>
+              <TableCell component="th" scope="row">
+                {entry.username}
+              </TableCell>
+              <TableCell align="right">
+                <Tooltip title={this.renderTooltipItems(entry.wins)} placement="top">
+                  <span className="standings-context">{entry.wins.length}</span>
+                </Tooltip>
+              </TableCell>
+              <TableCell align="right">
+                <Tooltip title={this.renderTooltipItems(entry.losses)} placement="top">
+                  <span className="standings-context">{entry.losses.length}</span>
+                </Tooltip>
+              </TableCell>
+              <TableCell align="right">
+                {entry.winPercentage.toFixed(3)}
+              </TableCell>
+            </TableRow>
+          )
+        })}
+      </TableBody>
+    )
+  }
+
 
   renderLoadingOrResults() {
     if (this.state.loading === true) {
@@ -169,31 +200,7 @@ class StandingsPage extends React.Component {
                   <TableCell align="right">Win %</TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
-                {this.state.standingsData.map((entry, i) => {
-                  return (
-                    <TableRow key={entry.userId}>
-                      <TableCell className="order">{i+1}</TableCell>
-                      <TableCell component="th" scope="row">
-                        {entry.username}
-                      </TableCell>
-                      <TableCell align="right">
-                        <Tooltip title={this.renderTooltipItems(entry.wins)} placement="top">
-                          <span className="standings-context">{entry.wins.length}</span>
-                        </Tooltip>
-                      </TableCell>
-                      <TableCell align="right">
-                        <Tooltip title={this.renderTooltipItems(entry.losses)} placement="top">
-                          <span className="standings-context">{entry.losses.length}</span>
-                        </Tooltip>
-                      </TableCell>
-                      <TableCell align="right">
-                        {entry.winPercentage.toFixed(3)}
-                      </TableCell>
-                    </TableRow>
-                  )
-                })}
-              </TableBody>
+              {this.sortedTable()}
             </Table>
           </Paper>
         </Container>
