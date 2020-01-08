@@ -17,7 +17,7 @@ const roundData = [
     "roundNumber":1,
     "name":"Wildcard",
     "active":true,
-    "selected":true,
+    "selected":false,
     "gameData":[
       {
         "gameNumber":1,
@@ -60,44 +60,44 @@ const roundData = [
   {
     "roundNumber":2,
     "name":"Divisional",
-    "active":false,
-    "selected":false,
+    "active":true,
+    "selected":true,
     "gameData":[
       {
         "gameNumber":1,
-        "awayTeam":"",
-        "awayTeamSpread":"",
-        "homeTeam":"",
-        "homeTeamSpread":"",
-        "overUnder":"",
-        "gameDetails":""
+        "awayTeam":"Minnesota Vikings",
+        "awayTeamSpread":"+6.5",
+        "homeTeam":"San Francisco 49ers",
+        "homeTeamSpread":"-6.5",
+        "overUnder":"44.5",
+        "gameDetails":"Saturday, Jan. 11, 4:35pm"
       },
       {
         "gameNumber":2,
-        "awayTeam":"",
-        "awayTeamSpread":"",
-        "homeTeam":"",
-        "homeTeamSpread":"",
-        "overUnder":"",
-        "gameDetails":""
+        "awayTeam":"Tennessee Titans",
+        "awayTeamSpread":"+9.5",
+        "homeTeam":"Baltimore Ravens",
+        "homeTeamSpread":"-9.5",
+        "overUnder":"46.5",
+        "gameDetails":"Saturday, Jan. 11, 4:35pm"
       },
       {
         "gameNumber":3,
-        "awayTeam":"",
-        "awayTeamSpread":"",
-        "homeTeam":"",
-        "homeTeamSpread":"",
-        "overUnder":"",
-        "gameDetails":""
+        "awayTeam":"Houston Texans",
+        "awayTeamSpread":"+9.5",
+        "homeTeam":"Kansas City Chiefs",
+        "homeTeamSpread":"-9.5",
+        "overUnder":"51.5",
+        "gameDetails":"Sunday, Jan. 12, 3:05pm"
       },
       {
         "gameNumber":4,
-        "awayTeam":"",
-        "awayTeamSpread":"",
-        "homeTeam":"",
-        "homeTeamSpread":"",
-        "overUnder":"",
-        "gameDetails":""
+        "awayTeam":"Seattle Seahawks",
+        "awayTeamSpread":"+3.5",
+        "homeTeam":"Green Bay Packers",
+        "homeTeamSpread":"-3.5",
+        "overUnder":"47.5",
+        "gameDetails":"Sunday, Jan. 12, 6:40pm"
       }
     ]
   },

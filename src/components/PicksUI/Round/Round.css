@@ -21,3 +21,11 @@
 .round-container {
   margin-top: 1em;
 }
+
+.round-selections.paper-selections div:last-child hr {
+  display: none;
+}
+
+.round-selections.paper-selections div:last-child ul {
+  margin-bottom: 0;
+}
