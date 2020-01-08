@@ -153,7 +153,7 @@ class StandingsPage extends React.Component {
         {sortedStandings.map((entry, i) => {
           return (
             <TableRow key={entry.userId}>
-              <TableCell className="order">{i+1}</TableCell>
+              <TableCell className="order hide-column-xs">{i+1}</TableCell>
               <TableCell component="th" scope="row">
                 {entry.username}
               </TableCell>
@@ -193,11 +193,32 @@ class StandingsPage extends React.Component {
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell className="order"></TableCell>
+                  <TableCell className="order hide-column-xs"></TableCell>
                   <TableCell>Name</TableCell>
-                  <TableCell align="right">Wins</TableCell>
-                  <TableCell align="right">Losses</TableCell>
-                  <TableCell align="right">Win %</TableCell>
+                  <TableCell align="right">
+                    <span className="title-xs">
+                      W
+                    </span>
+                    <span className="title">
+                      Wins
+                    </span>
+                  </TableCell>
+                  <TableCell align="right">
+                    <span className="title-xs">
+                      L
+                    </span>
+                    <span className="title">
+                      Losses
+                    </span>
+                  </TableCell>
+                  <TableCell align="right">
+                    <span className="title-xs">
+                      %
+                    </span>
+                    <span className="title">
+                      Win %
+                    </span>
+                  </TableCell>
                 </TableRow>
               </TableHead>
               {this.sortedTable()}

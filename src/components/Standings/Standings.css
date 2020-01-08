@@ -10,3 +10,29 @@ ul.standings-items {
 ul.standings-items li {
   list-style-type: none;
 }
+
+@media screen and (min-width:426px) {
+  .title-xs {
+    display: none;
+  }
+  .title {
+    display: inline-block;
+  }
+
+  .MuiTableCell-root.hide-column-xs {
+    display: table-cell;
+  }
+}
+
+@media screen and (max-width:425px) {
+  .title-xs {
+    display: inline-block;
+  }
+  .title {
+    display: none;
+  }
+
+  .MuiTableCell-root.hide-column-xs {
+    display: none;
+  }
+}
