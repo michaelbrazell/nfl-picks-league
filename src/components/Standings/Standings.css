@@ -12,10 +12,10 @@ ul.standings-items li {
 }
 
 @media screen and (min-width:426px) {
-  .title-xs {
+  .standings-title-xs {
     display: none;
   }
-  .title {
+  .standings-title {
     display: inline-block;
   }
 
@@ -25,10 +25,10 @@ ul.standings-items li {
 }
 
 @media screen and (max-width:425px) {
-  .title-xs {
+  .standings-title-xs {
     display: inline-block;
   }
-  .title {
+  .standings-title {
     display: none;
   }
 

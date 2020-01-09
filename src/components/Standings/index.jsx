@@ -198,26 +198,26 @@ class StandingsPage extends React.Component {
                   <TableCell className="order hide-column-xs"></TableCell>
                   <TableCell>Name</TableCell>
                   <TableCell align="right">
-                    <span className="title-xs">
+                    <span className="standings-title-xs">
                       W
                     </span>
-                    <span className="title">
+                    <span className="standings-title">
                       Wins
                     </span>
                   </TableCell>
                   <TableCell align="right">
-                    <span className="title-xs">
+                    <span className="standings-title-xs">
                       L
                     </span>
-                    <span className="title">
+                    <span className="standings-title">
                       Losses
                     </span>
                   </TableCell>
                   <TableCell align="right">
-                    <span className="title-xs">
+                    <span className="standings-title-xs">
                       %
                     </span>
-                    <span className="title">
+                    <span className="standings-title">
                       Win %
                     </span>
                   </TableCell>
