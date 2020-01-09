@@ -75,6 +75,8 @@ const Landing = () => (
           <p>The Standings will be updated once all games have been played for that week.  <br/>
           Note:  Standings may not be the official result.  This is the first year running this so the results will be verified manually.
           </p>
+          <h3>Version</h3>
+          <p>{global.appVersion}</p>
           
         </Grid>
       </Grid>
