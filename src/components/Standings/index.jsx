@@ -38,6 +38,9 @@ class StandingsPage extends React.Component {
           username: entry.username,
           userId: entry.userId,
           uid: entry.uid,
+          createdAt: entry.createdAt,
+          updatedAt: entry.updatedAt,
+          roundsComplete: entry.roundsComplete,
           wins: [],
           losses: [],
           winPercentage: null
@@ -94,7 +97,6 @@ class StandingsPage extends React.Component {
         } else {
           gameResults.winPercentage = winPercentage
         }
-
         this.setState({
           standingsData: [...this.state.standingsData, gameResults]
         })
