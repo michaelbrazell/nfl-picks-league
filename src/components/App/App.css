@@ -18,3 +18,12 @@ a.body-link:hover {
 a.body-link:visited {
   color: #f50057;
 }
+
+.version {
+  margin-top: 1em;
+  padding: 5px;
+  font-size: 11px;
+  text-align: center;
+  color: #808080;
+  width: 100%;
+}

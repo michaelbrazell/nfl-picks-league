@@ -41,7 +41,11 @@ const App = () => (
               <Route path={ROUTES.ACCOUNT} component={AccountPage} />
               <Route path={ROUTES.ADMIN} component={AdminPage} />
             </div>
+            <div class="version">
+             Playoff Picks League &middot; {global.appVersion}
+            </div>
           </div>
+          
         </Router>
       );
     }}
