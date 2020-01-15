@@ -61,7 +61,7 @@ const roundData = [
     "roundNumber":2,
     "name":"Divisional",
     "active":true,
-    "selected":true,
+    "selected":false,
     "gameData":[
       {
         "gameNumber":1,
@@ -104,26 +104,26 @@ const roundData = [
   {
     "roundNumber":3,
     "name":"Championship",
-    "active":false,
-    "selected":false,
+    "active":true,
+    "selected":true,
     "gameData":[
       {
         "gameNumber":1,
-        "awayTeam":"",
-        "awayTeamSpread":"",
-        "homeTeam":"",
-        "homeTeamSpread":"",
-        "overUnder":"",
-        "gameDetails":""
+        "awayTeam":"Tennessee Titans",
+        "awayTeamSpread":"+7.5",
+        "homeTeam":"Kansas City Chiefs",
+        "homeTeamSpread":"-7.5",
+        "overUnder":"52.5",
+        "gameDetails":"Sunday, Jan. 19, 3:05 p.m."
       },
       {
         "gameNumber":2,
-        "awayTeam":"",
-        "awayTeamSpread":"",
-        "homeTeam":"",
-        "homeTeamSpread":"",
-        "overUnder":"",
-        "gameDetails":""
+        "awayTeam":"Green Bay Packers",
+        "awayTeamSpread":"+7.5",
+        "homeTeam":"San Francisco 49ers",
+        "homeTeamSpread":"-7.5",
+        "overUnder":"44.5",
+        "gameDetails":"Sunday, Jan. 19, 6:40 p.m."
       }
     ]
   },
