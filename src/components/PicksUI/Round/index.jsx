@@ -254,14 +254,14 @@ class Round extends React.Component {
   };
 
   renderSubmitButton() {
-    if (this.state.userSelections.length >= 4) {
+    if (this.state.userSelections.length >= 2) {
       let finishedGames = [];
       this.state.userSelections.forEach(game => {
         if (game.teamSelection !== undefined && game.overUnderSelection !== undefined) {
           finishedGames.push(game)
         }
       })
-      
+
       if (finishedGames.length >= 2) {
         return <Button variant="contained" type="submit" color="primary" className="submit-button">Submit {this.state.roundData.name} Selections</Button>
       } else {
