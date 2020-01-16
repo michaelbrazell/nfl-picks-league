@@ -262,7 +262,7 @@ class Round extends React.Component {
         }
       })
       
-      if (finishedGames.length >= 4) {
+      if (finishedGames.length >= 2) {
         return <Button variant="contained" type="submit" color="primary" className="submit-button">Submit {this.state.roundData.name} Selections</Button>
       } else {
         return <Button disabled variant="contained" type="submit" color="primary" className="submit-button">Submit {this.state.roundData.name} Selections</Button>
